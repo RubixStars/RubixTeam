@@ -297,12 +297,12 @@
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: 4px;
-  margin: -40px -40px 0;
+  margin: 68px 0 0;
 }
 
 .u-section-3 .u-text-4 {
   font-size: 1.25rem;
-  margin: 0 -40px;
+  margin: 12px 0 0;
 }
 
 .u-section-3 .u-image-2 {
@@ -523,16 +523,6 @@
   .u-section-3 .u-container-layout-4 {
     padding-left: 10px;
     padding-right: 10px;
-  }
-
-  .u-section-3 .u-text-3 {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .u-section-3 .u-text-4 {
-    margin-left: 0;
-    margin-right: 0;
   }
 }.u-section-4 {
   background-image: url("images/pexels-photo-3945673.jpeg");
