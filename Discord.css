@@ -1,0 +1,43 @@
+.u-section-1 {
+  background-image: url("images/plane-3840x2160-minimalism-colors-4k-18613.jpg");
+  background-position: 50% 50%;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 567px;
+}
+
+.u-section-1 .u-custom-html-1 {
+  min-height: 507px;
+  height: auto;
+  margin: 30px 760px 30px 30px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-custom-html-1 {
+    margin-left: 0;
+    margin-right: 590px;
+    width: 940px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-custom-html-1 {
+    margin-right: 370px;
+    width: 720px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-custom-html-1 {
+    margin-right: 190px;
+    width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-custom-html-1 {
+    margin-right: 0;
+    width: 340px;
+  }
+}
