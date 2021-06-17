@@ -69,6 +69,7 @@
 }
 
 .u-section-2 .u-container-layout-2 {
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   padding: 30px 80px;
 }
 
@@ -90,6 +91,7 @@
 }
 
 .u-section-2 .u-container-layout-3 {
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   padding: 30px 80px;
 }
 
@@ -209,6 +211,7 @@
   width: 476px;
   min-height: 464px;
   background-image: none;
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   margin: 0 auto 0 0;
 }
 
@@ -233,6 +236,7 @@
   width: 520px;
   height: 464px;
   object-position: 50% 5.38%;
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   margin: -464px 0 0 auto;
 }
 
