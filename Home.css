@@ -221,7 +221,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: 4px;
-  margin: 178px 0 0;
+  margin: 180px 0 0;
 }
 
 .u-section-3 .u-text-2 {
@@ -256,12 +256,12 @@
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: 4px;
-  margin: 109px 44px 0;
+  margin: 0;
 }
 
 .u-section-3 .u-text-4 {
   font-size: 1.25rem;
-  margin: 11px 44px 0;
+  margin: 0;
 }
 
 .u-section-3 .u-image-2 {
@@ -482,16 +482,6 @@
   .u-section-3 .u-container-layout-4 {
     padding-left: 0;
     padding-right: 0;
-  }
-
-  .u-section-3 .u-text-3 {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .u-section-3 .u-text-4 {
-    margin-left: 0;
-    margin-right: 0;
   }
 }.u-section-4 {
   background-image: url("images/pexels-photo-3945673.jpeg");
@@ -806,7 +796,7 @@
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin: 112px 0 0;
+  margin: 113px 0 0;
 }
 
 .u-section-6 .u-icon-1 {
@@ -828,7 +818,7 @@
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin: 112px 0 0;
+  margin: 113px 0 0;
 }
 
 .u-section-6 .u-icon-2 {
@@ -849,7 +839,7 @@
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin: 112px 0 0;
+  margin: 113px 0 0;
 }
 
 .u-section-6 .u-icon-3 {

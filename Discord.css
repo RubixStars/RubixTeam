@@ -9,7 +9,6 @@
 
 .u-section-1 .u-custom-html-1 {
   min-height: 418px;
-  height: auto;
   margin: 75px 118px 0 721px;
 }
 
@@ -33,14 +32,9 @@
 }
 
 .u-section-1 .u-text-1 {
-  font-size: 3.75rem;
+  font-size: 4.5rem;
   font-weight: normal;
   margin: -119px 570px 60px 270px;
-}
-
-.u-section-1 .u-btn-2 {
-  font-size: 4.5rem;
-  padding: 0;
 }
 
 @media (max-width: 1199px) {
@@ -49,6 +43,7 @@
   }
 
   .u-section-1 .u-custom-html-1 {
+    height: auto;
     margin-top: 32px;
     margin-right: -615px;
     margin-left: 615px;
@@ -155,9 +150,5 @@
     margin-top: -119px;
     margin-right: 0;
     margin-left: 133px;
-  }
-
-  .u-section-1 .u-btn-2 {
-    font-size: 3rem;
   }
 }

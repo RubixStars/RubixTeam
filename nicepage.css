@@ -34021,14 +34021,26 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-btn-2 {
-  border-style: none;
-  text-transform: uppercase;
   font-size: 1.25rem;
   letter-spacing: 1px;
+  border-style: none;
   font-weight: 700;
+  text-transform: uppercase;
   background-image: none;
-  margin: -64px 0 24px auto;
+  margin: -64px 0 0 auto;
   padding: 9px 31px 11px 30px;
+}
+
+.u-header .u-text-2 {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: -42px 181px 34px 897px;
+}
+
+.u-header .u-btn-3 {
+  background-image: none;
+  padding: 0;
 }
 @media (max-width: 1199px) {
   .u-header .u-image-1 {
@@ -34046,6 +34058,12 @@ a.u-link.u-text-hover-grey-90:hover {
     margin-top: -65px;
     margin-bottom: 25px;
   }
+
+  .u-header .u-text-2 {
+    margin-top: -42px;
+    margin-right: 81px;
+    margin-left: 797px;
+  }
 }
 @media (max-width: 991px) {
   .u-header .u-text-1 {
@@ -34056,7 +34074,12 @@ a.u-link.u-text-hover-grey-90:hover {
 
   .u-header .u-btn-2 {
     margin-top: -64px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
+  }
+
+  .u-header .u-text-2 {
+    margin-right: 0;
+    margin-left: 658px;
   }
 }
 @media (max-width: 767px) {
@@ -34067,6 +34090,10 @@ a.u-link.u-text-hover-grey-90:hover {
   .u-header .u-text-1 {
     margin-right: 270px;
     margin-left: 78px;
+  }
+
+  .u-header .u-text-2 {
+    margin-left: 478px;
   }
 }
 @media (max-width: 575px) {
@@ -34083,6 +34110,10 @@ a.u-link.u-text-hover-grey-90:hover {
     margin-top: 18px;
     margin-right: auto;
     margin-bottom: 42px;
+  }
+
+  .u-header .u-text-2 {
+    margin-left: 278px;
   }
 }
 .u-footer {
