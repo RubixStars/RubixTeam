@@ -168,15 +168,20 @@
 }
 
 .u-section-2 .u-image-5 {
-  width: 842px;
-  height: 400px;
-  margin: -622px auto 60px;
+  width: 991px;
+  height: 471px;
+  margin: -658px auto 60px;
 }
 
 @media (max-width: 1199px) {
   .u-section-2 .u-layout-wrap-1 {
     margin-right: initial;
     margin-left: initial;
+  }
+
+  .u-section-2 .u-image-5 {
+    width: 940px;
+    height: 447px;
   }
 }
 
