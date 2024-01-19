@@ -37881,14 +37881,14 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-table-alt-custom-color-7 tr:nth-child(even)
         {
             color: #ffffff;
-            background-color: #6c7c49;
+            background-color: #ff0000;
         }
 
         .u-button-style.u-custom-color-7,
         .u-button-style.u-custom-color-7[class*="u-border-"]
         {
             color: #ffffff !important;
-            background-color: #6c7c49 !important;
+            background-color: #ff0000 !important;
         }
 
         .u-button-style.u-custom-color-7:hover,
@@ -37903,7 +37903,7 @@ a.u-link.u-text-hover-grey-90:hover {
         li.active > .u-button-style.u-button-style.u-custom-color-7[class*="u-border-"]
         {
             color: #ffffff !important;
-            background-color: #617042 !important;
+            background-color: #e60000 !important;
         }
 
         .u-hover-custom-color-7:hover,
@@ -37928,11 +37928,11 @@ a.u-link.u-text-hover-grey-90:hover {
         li.active > a.u-button-style.u-button-style.u-active-custom-color-7[class*="u-border-"]
         {
             color: #ffffff !important;
-            background-color: #6c7c49 !important;
+            background-color: #ff0000 !important;
         }
 
         a.u-link.u-hover-custom-color-7:hover {
-            color: #6c7c49 !important;
+            color: #ff0000 !important;
         }
 
         
@@ -38247,14 +38247,14 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-border-custom-color-7,
         .u-separator-custom-color-7:after
         {
-            border-color: #6c7c49;
-            stroke: #6c7c49;
+            border-color: #ff0000;
+            stroke: #ff0000;
         }
 
         .u-button-style.u-border-custom-color-7
         {
-            border-color: #6c7c49 !important;
-            color: #6c7c49 !important;
+            border-color: #ff0000 !important;
+            color: #ff0000 !important;
             background-color: transparent !important;
         }
 
@@ -38262,7 +38262,7 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-button-style.u-border-custom-color-7:focus
         {
             border-color: transparent !important;
-            color: #617042 !important;
+            color: #e60000 !important;
             background-color: transparent !important;
         }
 
@@ -38277,18 +38277,18 @@ a.u-link.u-text-hover-grey-90:hover {
         a.u-button-style.u-button-style.active > .u-border-active-custom-color-7,
         li.active > a.u-button-style.u-button-style.u-border-active-custom-color-7
         {
-            color: #6c7c49 !important;
-            border-color: #6c7c49 !important;
+            color: #ff0000 !important;
+            border-color: #ff0000 !important;
         }
 
         .u-link.u-border-custom-color-7[class*="u-border-"]
         {
-            border-color: #6c7c49 !important;
+            border-color: #ff0000 !important;
         }
 
         .u-link.u-border-custom-color-7[class*="u-border-"]:hover
         {
-            border-color: #617042 !important;
+            border-color: #e60000 !important;
         }
         
         
@@ -38682,7 +38682,7 @@ a.u-link.u-text-hover-grey-90:hover {
         a.u-button-style.u-text-custom-color-7,
         a.u-button-style.u-text-custom-color-7[class*="u-border-"]
         {
-            color: #6c7c49 !important;
+            color: #ff0000 !important;
         }
 
         a.u-button-style.u-text-custom-color-7:hover,
@@ -38694,7 +38694,7 @@ a.u-link.u-text-hover-grey-90:hover {
         a.u-button-style.u-button-style.u-text-custom-color-7.active,
         a.u-button-style.u-button-style.u-text-custom-color-7[class*="u-border-"].active
         {
-            color: #617042 !important;
+            color: #e60000 !important;
         }
 
         a.u-button-style:hover > .u-text-hover-custom-color-7,
@@ -38720,7 +38720,7 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-popupmenu-items.u-text-hover-custom-color-7 .u-nav-link:hover,
         .u-popupmenu-items.u-popupmenu-items.u-text-active-custom-color-7 .u-nav-link.active
         {
-            color: #6c7c49 !important;
+            color: #ff0000 !important;
         }
 
         .u-text-custom-color-7 .u-svg-link,
@@ -38729,17 +38729,17 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-button-style.u-button-style.active > .u-text-active-custom-color-7 .u-svg-link,
         .u-text-hover-custom-color-7:focus .u-svg-link
         {
-            fill: #6c7c49;
+            fill: #ff0000;
         }
 
         .u-link.u-text-custom-color-7:hover
         {
-            color: #617042 !important;
+            color: #e60000 !important;
         }
 
         a.u-link.u-text-hover-custom-color-7:hover
         {
-            color: #6c7c49 !important;
+            color: #ff0000 !important;
         }
         
         
@@ -38811,6 +38811,14 @@ a.u-link.u-text-hover-grey-90:hover {
 
         .u-body
         {
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -38991,6 +38999,14 @@ a.u-link.u-text-hover-grey-90:hover {
         {
         margin-top: 20px;
         margin-bottom: 20px;
+        borders: top right bottom left;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        }
+        .u-btn
+        {
+        border-radius: 50px;
         }
         blockquote
         {
@@ -39022,7 +39038,6 @@ a.u-link.u-text-hover-grey-90:hover {
         }
         .u-body
         {
-        background-image: url("images/BUILDSBG.png");
         background-size: cover;
         background-position: 50% 50%;
         background-repeat: no-repeat;
@@ -39130,16 +39145,16 @@ a.u-link.u-text-hover-grey-90:hover {
         .u-image:not(.u-shading) > .u-container-layout > .u-btn:hover,
         .u-btn:hover
         {
-        background-color: #00bfe7;
-        color: #000000;
+        background-color: #33a3bb;
+        color: #ffffff;
         }
         .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:focus,
         .u-gradient > .u-container-layout > .u-btn:focus,
         .u-image:not(.u-shading) > .u-container-layout > .u-btn:focus,
         .u-btn:focus
         {
-        background-color: #00bfe7;
-        color: #000000;
+        background-color: #33a3bb;
+        color: #ffffff;
         }
         .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:active,
         .u-gradient > .u-container-layout > .u-btn:active,
@@ -39163,6 +39178,11 @@ a.u-link.u-text-hover-grey-90:hover {
         {
         color: #406d77;
         }
+        .u-shading .u-btn:hover,.u-overlap-contrast .u-header .u-btn:hover
+        {
+        background-color: #9aedff;
+        color: #000000;
+        }
         /** alt-color-rules **/
     
 
@@ -39184,6 +39204,7 @@ a.u-link.u-text-hover-grey-90:hover {
 
 .u-header .u-btn-1 {
   font-size: 2.25rem;
+  font-weight: 400;
   padding: 0;
 }
 
@@ -39362,24 +39383,25 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-footer .u-text-1 {
-  font-size: 1.125rem;
-  margin: 41px 30px 0 767px;
+  font-size: 3rem;
+  font-weight: normal;
+  margin: 33px 795px 0 119px;
+}
+
+.u-footer .u-btn-1 {
+  font-weight: 400;
+  padding: 0;
 }
 
 .u-footer .u-image-1 {
   width: 63px;
   height: 63px;
-  margin: -59px auto 0 41px;
+  margin: -70px auto 0 41px;
 }
 
 .u-footer .u-text-2 {
-  font-size: 3rem;
-  font-weight: normal;
-  margin: -69px 795px 0 119px;
-}
-
-.u-footer .u-btn-1 {
-  padding: 0;
+  font-size: 1.125rem;
+  margin: -61px 29px 0 768px;
 }
 
 .u-footer .u-social-icons-1 {
@@ -39387,7 +39409,7 @@ a.u-link.u-text-hover-grey-90:hover {
   min-height: 16px;
   width: 310px;
   min-width: 120px;
-  margin: -65px auto 1px;
+  margin: -54px auto 39px;
 }
 
 .u-footer .u-icon-1 {
@@ -39418,26 +39440,26 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-footer .u-text-1 {
-    width: 343px;
-    margin-top: 152px;
-    margin-left: auto;
-    margin-right: auto;
+    width: auto;
+    margin-right: 425px;
+    margin-left: 121px;
   }
 
   .u-footer .u-image-1 {
     width: 63px;
     height: 63px;
-    margin-top: -170px;
+    margin-top: -70px;
   }
 
   .u-footer .u-text-2 {
-    width: auto;
-    margin-top: -70px;
-    margin-right: 425px;
-    margin-left: 121px;
+    width: 343px;
+    margin-top: 49px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .u-footer .u-social-icons-1 {
+    margin-top: -165px;
     margin-right: 77px;
     margin-bottom: 60px;
   }
@@ -39447,9 +39469,13 @@ a.u-link.u-text-hover-grey-90:hover {
     min-height: 253px;
   }
 
-  .u-footer .u-text-2 {
+  .u-footer .u-text-1 {
     margin-right: -77px;
     margin-left: 118px;
+  }
+
+  .u-footer .u-image-1 {
+    margin-top: -70px;
   }
 
   .u-footer .u-social-icons-1 {
@@ -39462,22 +39488,22 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-footer .u-text-1 {
-    margin-top: 225px;
-  }
-
-  .u-footer .u-image-1 {
-    margin-top: -243px;
-    margin-left: 138px;
-  }
-
-  .u-footer .u-text-2 {
-    margin-top: -69px;
+    margin-top: 33px;
     margin-right: -178px;
     margin-left: 219px;
   }
 
+  .u-footer .u-image-1 {
+    margin-top: -70px;
+    margin-left: 138px;
+  }
+
+  .u-footer .u-text-2 {
+    margin-top: 122px;
+  }
+
   .u-footer .u-social-icons-1 {
-    margin-top: 25px;
+    margin-top: -147px;
     margin-right: auto;
   }
 }
@@ -39487,25 +39513,25 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-footer .u-text-1 {
-    width: auto;
-    margin-top: 224px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .u-footer .u-image-1 {
-    margin-top: -237px;
-    margin-left: 29px;
-  }
-
-  .u-footer .u-text-2 {
-    margin-top: -69px;
+    margin-top: 38px;
     margin-right: 29px;
     margin-left: 109px;
   }
 
+  .u-footer .u-image-1 {
+    margin-top: -70px;
+    margin-left: 29px;
+  }
+
+  .u-footer .u-text-2 {
+    width: auto;
+    margin-top: 117px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .u-footer .u-social-icons-1 {
-    margin-top: 29px;
+    margin-top: -138px;
   }
 }
 
