@@ -43779,13 +43779,13 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-btn-2 {
-  border-style: none;
   font-size: 1rem;
-  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
-  background-image: none;
+  transition-duration: 0.5s;
+  transform: translateX(0px) translateY(0px) scale(1) rotate(0deg);
+  box-shadow: 2px 0 0 0 rgba(0,0,0,0);
   margin: -48px 322px 0 auto;
   padding: 7px 24px 8px 23px;
 }
@@ -43819,6 +43819,7 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-header .u-btn-2 {
+    border-style: none;
     margin-top: -47px;
     margin-right: 324px;
   }
@@ -43920,6 +43921,16 @@ a.u-link.u-text-hover-grey-90:hover {
     margin-left: 69px;
   }
 }
+.u-header .u-btn-2, .u-header .u-btn-2:before, .u-header .u-btn-2 > .u-container-layout:before {
+    transition-property: fill, color, background-color, stroke-width, border-style, border-width, border-top-width, border-left-width, border-right-width, border-bottom-width, custom-border, borders, box-shadow, text-shadow, opacity, border-radius, stroke, border-color, font-size, font-style, font-weight, text-decoration, letter-spacing, transform, background-image, image-zoom, background-size, background-position
+}
+.u-header .u-container-layout:hover .u-btn-2 {
+    transform: rotate(0deg) scale(1) translateX(0px) translateY(0px) !important
+}
+.u-container-layout.hover .u-header .u-btn-2 {
+    transform: rotate(0deg) scale(1) translateX(0px) translateY(0px) !important
+} 
+
  .u-footer {
   background-image: none;
 }
