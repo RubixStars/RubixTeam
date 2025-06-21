@@ -1,5 +1,5 @@
  .u-section-1 {
-  background-image: url("images/PICTURE2.png");
+  background-image: url("images/75perPICTURE2.jpg");
   background-position: 50% 50%;
 }
 
@@ -30,7 +30,7 @@
     min-height: 267px;
   }
 } .u-section-2 {
-  background-image: linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url("images/BACK.png");
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url("images/50perPICTURE2.jpg");
   background-position: 50% 50%;
 }
 
@@ -147,7 +147,7 @@
     height: 191px;
   }
 } .u-section-3 {
-  background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("images/611ec41d0434391202958433_0_SCBRci_mo1Yhc9km.png");
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("images/50per611ec41d0434391202958433_0_SCBRci_mo1Yhc9km.jpg");
   background-position: 50% 50%;
 }
 
