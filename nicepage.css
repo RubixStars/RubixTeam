@@ -43413,6 +43413,12 @@ a.u-link.u-text-hover-grey-90:hover {
         
         
         
+        
+        
+        
+        
+        
+        
         --theme-sheet-width-xl: 1140px;
         --theme-sheet-width-lg: 940px;
         --theme-sheet-width-md: 720px;
@@ -43482,11 +43488,15 @@ a.u-link.u-text-hover-grey-90:hover {
         }
         h5
         {
-        font-weight: 400;
         font-size: 1.25rem;
         line-height: 1.2;
         margin-top: 20px;
         margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        list-icon-spacing: 0.3;
+        list-icon-size: 0.8;
+        font-weight: 400;
         }
         h6
         {
@@ -43642,6 +43652,13 @@ a.u-link.u-text-hover-grey-90:hover {
         /** cms-rules **/
 
         /** color-rules **/
+        .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > h5,
+        .u-gradient > .u-container-layout > h5,
+        .u-image:not(.u-shading) > .u-container-layout > h5,
+        h5
+        {
+        color: #b3b3b3;
+        }
         .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > a,
         .u-gradient > .u-container-layout > a,
         .u-image:not(.u-shading) > .u-container-layout > a,
@@ -43707,6 +43724,10 @@ a.u-link.u-text-hover-grey-90:hover {
         /** color-rules **/
 
         /** alt-color-rules **/
+        .u-custom-color-1 h5,.u-custom-color-2 h5,.u-custom-color-5 h5,.u-custom-color-6 h5,.u-custom-color-7 h5,.u-custom-color-8 h5,.u-body-color h5,.u-bg-color h5,.u-palette-1-dark-3 h5,.u-palette-1-dark-2 h5,.u-palette-1-dark-1 h5,.u-palette-2-dark-3 h5,.u-palette-2-dark-2 h5,.u-palette-2-dark-1 h5,.u-palette-3-base h5,.u-palette-3-dark-3 h5,.u-palette-3-dark-2 h5,.u-palette-3-dark-1 h5,.u-palette-3 h5,.u-palette-3-light-1 h5,.u-palette-3-light-2 h5,.u-palette-4-dark-3 h5,.u-palette-4-dark-2 h5,.u-palette-4-dark-1 h5,.u-palette-5-base h5,.u-palette-5-dark-3 h5,.u-palette-5-dark-2 h5,.u-palette-5-dark-1 h5,.u-palette-5 h5,.u-palette-5-light-1 h5,.u-grey-40 h5,.u-grey-30 h5,.u-grey-90 h5,.u-grey-80 h5,.u-grey-75 h5,.u-black h5,.u-grey-70 h5,.u-grey-60 h5,.u-grey-50 h5,.u-grey-dark-3 h5,.u-grey-dark-2 h5,.u-grey-dark-1 h5,.u-grey h5,.u-shading h5,.u-overlap-contrast .u-header h5:not(.u-nav-link):not(.u-btn)
+        {
+        color: #e5e5e5;
+        }
         .u-shading a,.u-overlap-contrast .u-header a:not(.u-nav-link):not(.u-btn)
         {
         color: #406d77;
