@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edge of the World — A D&D Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f2e8d0;
+    --parchment-dark: #e0ceaa;
+    --ink: #1a1208;
+    --ink-faded: #3d2b10;
+    --red: #8b1a1a;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --sea-blue: #1a3a5c;
+    --sea-mid: #2e6b8a;
+    --sea-light: #4a9ab5;
+    --border: #7a5c2a;
+    --shadow: rgba(26,18,8,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #0d0d0d;
+    background-image: 
+      radial-gradient(ellipse at 20% 50%, #0a1a2e 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, #0e1a10 0%, transparent 60%);
+    font-family: 'IM Fell English', serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    background: linear-gradient(180deg, #0a0a0a 0%, transparent 100%);
+    position: relative;
+  }
+  .site-header::after {
+    content: '✦ ✦ ✦';
+    display: block;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 1rem;
+    margin-top: 0.5rem;
+  }
+  .title-main {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    color: var(--gold-light);
+    text-shadow: 0 0 40px rgba(180,130,20,0.6), 2px 2px 0 #3a2000;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+  .title-sub {
+    font-family: 'IM Fell English SC', serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    color: var(--parchment-dark);
+    letter-spacing: 0.3em;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+  .campaign-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+  .meta-tag {
+    background: rgba(184,134,11,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.9rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* NAVIGATION */
+  .nav-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem 1.5rem;
+    background: rgba(26,18,8,0.9);
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--parchment-dark);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold-light);
+  }
+
+  /* MAIN LAYOUT */
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* PANELS */
+  .panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* PARCHMENT CARD */
+  .parchment {
+    background: var(--parchment);
+    background-image: 
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 30px var(--shadow), inset 0 0 60px rgba(180,140,60,0.1);
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .parchment::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(122,92,42,0.3);
+    pointer-events: none;
+  }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--red);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.2rem;
+    text-shadow: 1px 1px 0 rgba(139,26,26,0.3);
+  }
+  .act-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  h3 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.05rem;
+    color: var(--sea-blue);
+    margin: 1.2rem 0 0.4rem;
+    letter-spacing: 0.05em;
+  }
+  h4 {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-faded);
+    margin: 0.8rem 0 0.3rem;
+  }
+  p {
+    line-height: 1.75;
+    font-size: 0.96rem;
+    color: var(--ink-faded);
+    margin-bottom: 0.6rem;
+  }
+
+  /* DM BOX */
+  .dm-box {
+    background: rgba(26,58,92,0.08);
+    border-left: 4px solid var(--sea-mid);
+    padding: 0.9rem 1.2rem;
+    margin: 1rem 0;
+    font-style: italic;
+  }
+  .dm-box strong { color: var(--sea-blue); font-style: normal; font-family: 'IM Fell English SC', serif; font-size: 0.8rem; letter-spacing: 0.1em; }
+
+  /* READ-ALOUD */
+  .read-aloud {
+    background: rgba(139,26,26,0.06);
+    border: 1px dashed var(--red);
+    padding: 1rem 1.3rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--ink);
+    position: relative;
+  }
+  .read-aloud::before {
+    content: '📖 Read Aloud';
+    position: absolute;
+    top: -0.6rem;
+    left: 1rem;
+    background: var(--parchment);
+    padding: 0 0.4rem;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-family: 'IM Fell English SC', serif;
+    color: var(--red);
+    letter-spacing: 0.1em;
+  }
+
+  /* DIALOGUE */
+  .dialogue-box {
+    background: rgba(184,134,11,0.08);
+    border: 1px solid var(--gold);
+    padding: 1rem 1.3rem;
+    margin: 0.8rem 0;
+  }
+  .speaker {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.82rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .dialogue-text {
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  .voice-note {
+    font-size: 0.78rem;
+    color: var(--sea-mid);
+    font-style: normal;
+    margin-top: 0.3rem;
+  }
+
+  /* STAT BLOCK */
+  .stat-block {
+    background: #fdf6e3;
+    border: 2px solid var(--border);
+    padding: 0;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    box-shadow: 3px 3px 10px var(--shadow);
+    overflow: hidden;
+  }
+  .stat-header {
+    background: var(--red);
+    color: #fff;
+    padding: 0.6rem 1rem;
+  }
+  .stat-header h3 {
+    color: #fff;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+  .stat-header p {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin: 0.1rem 0 0;
+  }
+  .stat-body { padding: 0.7rem 1rem; }
+  .stat-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.4rem 0;
+    align-items: baseline;
+  }
+  .stat-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.78rem;
+    color: var(--red);
+    letter-spacing: 0.05em;
+    min-width: 80px;
+  }
+  .stat-val { color: var(--ink); font-size: 0.88rem; }
+  .stat-divider { border: none; border-top: 1px solid var(--border); margin: 0.5rem 0; }
+  .ability-scores {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+    margin: 0.6rem 0;
+  }
+  .ability-score { border: 1px solid var(--parchment-dark); padding: 0.3rem 0.2rem; }
+  .ability-name { font-family: 'IM Fell English SC', serif; font-size: 0.68rem; color: var(--red); }
+  .ability-num { font-size: 1rem; font-weight: bold; color: var(--ink); display: block; }
+  .ability-mod { font-size: 0.75rem; color: var(--ink-faded); }
+  .trait-name { font-weight: bold; font-style: italic; }
+  .action-header {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.9rem;
+    color: var(--red);
+    border-bottom: 1px solid var(--red);
+    margin: 0.6rem 0 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* BATTLE MAP */
+  .battle-map-container {
+    background: var(--sea-blue);
+    border: 3px solid var(--border);
+    padding: 1rem;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-canvas {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.7rem;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    color: var(--parchment);
+  }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+
+  /* ENCOUNTER CARD */
+  .encounter-card {
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+  }
+  .encounter-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-faded) 100%);
+    color: var(--parchment);
+    padding: 0.6rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .encounter-header:hover { background: linear-gradient(135deg, #2a1a08 0%, #5a3a18 100%); }
+  .encounter-header span { font-family: 'IM Fell English SC', serif; font-size: 0.88rem; letter-spacing: 0.05em; }
+  .encounter-header .cr-badge {
+    background: var(--red);
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .encounter-body {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .encounter-body.open {
+    max-height: 4000px;
+    padding: 1rem 1.2rem;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--red) 50%, var(--sea-mid) 100%);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -1.65rem;
+    top: 0.2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--gold);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+  }
+  .timeline-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+  }
+  .timeline-title {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1rem;
+    color: var(--sea-blue);
+    margin: 0.15rem 0;
+  }
+
+  /* REWARD BOX */
+  .reward-box {
+    background: rgba(184,134,11,0.12);
+    border: 2px double var(--gold);
+    padding: 0.8rem 1.2rem;
+    margin: 0.8rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    align-items: start;
+  }
+  .reward-icon { font-size: 1.4rem; }
+  .reward-text { font-size: 0.88rem; color: var(--ink-faded); }
+  .reward-text strong { color: var(--gold); font-family: 'IM Fell English SC', serif; }
+
+  /* GRID HELPERS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .ability-scores { grid-template-columns: repeat(3,1fr); } }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #1a1208; }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* INTRO SCROLL */
+  .intro-scroll {
+    text-align: center;
+    padding: 1.5rem 1rem 0.5rem;
+  }
+  .intro-scroll p {
+    font-size: 1.05rem;
+    color: var(--ink);
+    max-width: 700px;
+    margin: 0 auto 0.6rem;
+    font-style: italic;
+  }
+
+  /* CHIP */
+  .chip {
+    display: inline-block;
+    background: var(--sea-blue);
+    color: #cde;
+    font-size: 0.72rem;
+    font-family: 'IM Fell English SC', serif;
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.08em;
+    margin: 0.15rem;
+  }
+  .chip.red { background: var(--red); color: #fdd; }
+  .chip.gold { background: var(--gold); color: var(--ink); }
+
+  /* FLOAT DECO */
+  .section-deco {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.3rem;
+    letter-spacing: 0.7rem;
+    margin: 0.5rem 0 1.2rem;
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="title-main">Edge of the World</div>
+  <div class="title-sub">A Dungeons &amp; Dragons One-Shot Campaign &mdash; Anno Domini 1623</div>
+  <div class="campaign-meta">
+    <span class="meta-tag">3 Hours</span>
+    <span class="meta-tag">4–6 Players</span>
+    <span class="meta-tag">Levels 3–4</span>
+    <span class="meta-tag">Flat Earth Setting</span>
+    <span class="meta-tag">Nautical Adventure</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showPanel('overview')">Campaign Overview</button>
+  <button class="nav-btn" onclick="showPanel('act1')">Act I — The Departure</button>
+  <button class="nav-btn" onclick="showPanel('act2')">Act II — The Voyage</button>
+  <button class="nav-btn" onclick="showPanel('act3')">Act III — The Edge</button>
+  <button class="nav-btn" onclick="showPanel('npcs')">NPCs &amp; Dialogue</button>
+  <button class="nav-btn" onclick="showPanel('enemies')">Enemy Stat Blocks</button>
+  <button class="nav-btn" onclick="showPanel('maps')">Battle Maps</button>
+  <button class="nav-btn" onclick="showPanel('rewards')">Rewards &amp; Tables</button>
+</nav>
+
+<div class="main-wrap">
+
+<!-- ══════════════════════════════════════════════════════ OVERVIEW -->
+<div class="panel active" id="panel-overview">
+  <div class="parchment">
+    <div class="act-label">Campaign Document — For the Dungeon Master's Eyes</div>
+    <div class="section-title">Campaign Overview</div>
+    <div class="intro-scroll">
+      <p>The year is 1623. The world is flat — every scholar knows this. Ships that sail too far simply… fall. And yet, no one has ever returned to say so with certainty.</p>
+    </div>
+    <div class="section-deco">— ⚓ —</div>
+
+    <h3>The Premise</h3>
+    <p>A group of geography students at the <em>Royal Academy of Cape Colony</em> in the Dutch settlement of Cape Town, South Africa, have become obsessed with a single question: <strong>What is truly at the edge of the world?</strong> Ancient charts show a great waterfall. Theologians say the void. Sailors speak of sea monsters that guard the rim. The students pool their savings, sell their instruments and books, and raise enough gold to commission a crew of rough pirates who are desperate — or greedy — enough to take the job.</p>
+    <p>Together, students and pirates sail the <em>Witte Horizon</em> (White Horizon), a newly built three-masted fluyt. The voyage takes them through uncharted waters, past mysterious islands, into a kraken's hunting grounds, through a pirate blockade, and finally to the literal edge of creation itself.</p>
+
+    <h3>Player Characters</h3>
+    <p>Players choose to be either <strong>Geography Students</strong> (scholars, navigators, naturalists — light armor, intelligence/wisdom focused) or <strong>Pirates</strong> (fighters, rogues, barbarians — heavy hitters, sea-experienced). The party should have a mix of both. Provide the following premade character archetypes or let players build their own at Level 3.</p>
+    <div class="two-col">
+      <div>
+        <h4>Student Archetypes</h4>
+        <p><span class="chip gold">Cornelius van Dijk</span> — Human Wizard (Cartographer). INT 18, spells include Detect Magic, Identify, Fly. Carries a prized astrolabe.<br><br>
+        <span class="chip gold">Beatrix Hartmann</span> — Half-Elf Bard (College of Lore). CHA 16, knows sea shanties that actually buff the crew. Secretly writes everything down for posterity.<br><br>
+        <span class="chip gold">Yusuf al-Rashid</span> — Human Cleric (Knowledge Domain). WIS 17, originally from Moroccan trade family. Speaks Arabic, Dutch, and Portuguese. Has a theory the edge is a gateway to paradise.</p>
+      </div>
+      <div>
+        <h4>Pirate Archetypes</h4>
+        <p><span class="chip red">Griet "Iron Griet" Bosman</span> — Human Fighter (Battle Master). STR 18, ex-VOC soldier turned freebooter. Short fuse, loyal when paid.<br><br>
+        <span class="chip red">Daan "Slippery Daan" Visser</span> — Human Rogue (Swashbuckler). DEX 18, charming, always looking for an angle. Hides his fear behind jokes.<br><br>
+        <span class="chip red">Naledi of the Cape</span> — Khoikhoi Ranger (Hunter). DEX 17, WIS 15. Local guide hired last minute. Knows the southern sea better than anyone — and suspects the edge is sacred ground.</p>
+      </div>
+    </div>
+
+    <h3>The Ship: Witte Horizon</h3>
+    <div class="dm-box"><strong>DM Note:</strong> The ship is its own character. It has 300 HP (treated as a construct), AC 15, and can take damage from attacks. If it reaches 0 HP it sinks — game over. Players can make repairs during rests (DC 14 Carpenter's Tools check restores 2d10+10 HP). Remind players of the ship's condition regularly to build tension.</div>
+    <p><strong>Dimensions:</strong> 90 ft long, 25 ft beam. Three masts. Cannon ports (8 cannons, 3d10 damage each, reload action). Crew quarters below, captain's cabin aft, cargo hold beneath. Built in Cape Town docks — she smells of fresh pine resin and tar.</p>
+
+    <h3>Pacing Guide (3 Hours)</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">0:00 – 0:30</div>
+        <div class="timeline-title">Act I — Cape Town: The Gathering & Departure</div>
+        <p>Introductions, hiring the crew, shopping, and setting sail. One roleplay encounter (dockmaster bribe/persuasion).</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-label">0:30 – 2:00</div>
+        <div class="timeline-title">Act II — The Open Sea: Islands & Monsters</div>
+        <p>Three major encounters: Fog Island (exploration), Pirate Ambush (ship combat), Kraken Attack (boss fight + near-quit moment). Interspersed with short RP moments.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--sea-mid)"></div>
+        <div class="timeline-label">2:00 – 2:40</div>
+        <div class="timeline-title">Act III — The Edge of the World</div>
+        <p>Arrival, the Guardian Encounter, the Revelation. Emotional climax.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--gold)"></div>
+        <div class="timeline-label">2:40 – 3:00</div>
+        <div class="timeline-title">Epilogue — Return to Cape Town</div>
+        <p>Quick wrap-up of consequences, awards, and character moments.</p>
+      </div>
+    </div>
+
+    <h3>Themes &amp; Tone</h3>
+    <p>This campaign blends <strong>Age of Sail wonder</strong> with <strong>cosmic horror</strong> and <strong>philosophical revelation</strong>. The edge of the world is not a trap or a monster — it is a genuine revelation that reshapes the characters' understanding of existence. Play up fear of the unknown, the camaraderie between scholars and rogues, and the bittersweet truth: that knowing doesn't always bring comfort.</p>
+    <p>Tonally: start grounded and historical (Dutch colonial port, salty sea air, gold and politics), escalate through genuine danger and wonder, and land on something transcendent and slightly terrifying.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ ACT 1 -->
+<div class="panel" id="panel-act1">
+  <div class="parchment">
+    <div class="act-label">Act One</div>
+    <div class="section-title">The Departure from Cape Town</div>
+    <div class="section-deco">⚓ ⚓ ⚓</div>
+    <p><em>Setting: Cape Town, South Africa. The Dutch East India Company (VOC) settlement. Year: 1623. A busy harbour of caulked hulls, shouting merchants, gulls and salt wind.</em></p>
+
+    <h3>Scene 1 — The Academy Common Room</h3>
+    <div class="read-aloud">
+      The scent of ink and tallow candles hangs in the low-beamed room of the Royal Geography Faculty. Maps cover every wall — coastlines of Africa, India, the spice islands. But one wall holds only a great blank expanse, labelled in a student's hand: <em>"HERE BE THE EDGE. UNKNOWN."</em> Cornelius has pinned a note to the centre: <em>"Why unknown? Let us go and see."</em> You have been arguing about this for three months. Today, you have enough money to actually do it.
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> Open with each player describing how their character got involved. Pirates might have been recruited via a tavern notice. Students may have pooled graduation funds. Give each player 30 seconds of spotlight. The key info: they have raised 1,200 gold pieces total (between them). A proper ocean voyage to the edge will cost ~600gp for crew, provisions, and ship rental fees — but as the dockmaster will reveal, no legitimate captain will take this voyage.</div>
+
+    <h3>Scene 2 — The Docks: Finding a Crew</h3>
+    <div class="read-aloud">
+      The harbour of Cape Town reeks of fish oil and ambition. Three-masted VOC ships dwarf the fishing skiffs. A weathered sign above a tavern reads: "THE DROWNED ANCHOR — All Sailors Welcome." Inside: dice games, pipe smoke, and a dozen hard faces that have seen the sea's teeth.
+    </div>
+
+    <h4>Key NPC: Captain Maarten Hoog (available for hire)</h4>
+    <div class="dialogue-box">
+      <div class="speaker">Captain Maarten Hoog</div>
+      <div class="dialogue-text">"The edge? <em>[long pause, refills cup]</em> I've heard that question before. Two ships tried last year. The <em>Morgenster</em>. The <em>Vliegende Vis</em>. Neither came back. <em>[leans forward]</em> But neither did they pay me three hundred gold up front. You say you have that kind of money — real coin, not promises — and I'll sail you to the rim of the good Lord's creation itself. My crew don't need to know where we're going until we're too far out to turn back. That's how it works."</div>
+      <div class="voice-note">Voice: Gravelly, Dutch-accented. Slow and deliberate. Taps finger on table when thinking. Never raises voice — doesn't need to.</div>
+    </div>
+
+    <div class="dm-box"><strong>Skill Challenge: Negotiating the Crew (Optional RP Encounter)</strong><br>
+    The players must assemble a full crew of 12. They can persuade/bribe pirates in the tavern. Use the following checks — players need 5 successes before 3 failures:<br>
+    • <strong>Persuasion DC 13</strong> — Convince a reluctant sailor with inspiring speech<br>
+    • <strong>Intimidation DC 14</strong> — Scare off a bully rival trying to poach the crew<br>
+    • <strong>Deception DC 12</strong> — Hide the true destination until they're committed<br>
+    • <strong>Gold bribe (50gp)</strong> — Automatic success<br>
+    <br><strong>Success:</strong> Full crew of 12, morale is high (+1 to ship combat checks)<br>
+    <strong>Failure:</strong> Only 8 crew, -1 to ship checks and Captain Hoog is grumpy</div>
+
+    <h3>Scene 3 — Purchasing Supplies</h3>
+    <p>Give players 20 minutes (real time) to roleplay at the docks. Available vendors:</p>
+    <h4>Hendrika's Provisions (General Store)</h4>
+    <p>Salted beef (5gp/week supply for 6), hardtack, fresh water barrels (3gp each), rope (1gp/50ft), lanterns (5sp), healing potions (50gp each — DC 14 Persuasion to negotiate down to 40gp).</p>
+    <h4>Blacksmith Tomás (Weapons)</h4>
+    <p>Cutlasses (15gp), flintlock pistols (30gp, 1d10 piercing, reload action), boarding axes (10gp), chain shirts (50gp), leather armor (10gp).</p>
+    <h4>Old Miriam (Mysterious chart seller)</h4>
+    <div class="dialogue-box">
+      <div class="speaker">Old Miriam — the Chart-Seller</div>
+      <div class="dialogue-text">"Ah. The edge-seekers. Yes, I can see it in your eyes — that particular madness. <em>[unrolls a salt-stained chart]</em> This shows three things: Fog Island, where the sea forgets itself. The Drowned Shelf, where the kraken sleeps beneath miles of black water. And here — <em>[her finger trembles]</em> — the Cascade Rim. I will sell you this chart for fifty gold. Or you may have it free, if you promise to come back and tell me what you found. I am… very old. I have been waiting a long time for someone brave enough."</div>
+      <div class="voice-note">Voice: Ancient, almost a whisper. Portuguese accent beneath Dutch. Eyes that are unsettlingly pale — perhaps she has been to the edge before. She will not confirm or deny this.</div>
+    </div>
+    <p>The chart gives the party advantage on Navigation checks during the voyage.</p>
+
+    <h3>Scene 4 — Setting Sail</h3>
+    <div class="read-aloud">
+      The <em>Witte Horizon</em> creaks as she leaves the dock. Cape Town's white buildings and distant Table Mountain grow smaller. The crew is busy, the rigging sings, and the great blue-grey Atlantic opens ahead of you. Captain Hoog stands at the wheel, pipe unlit in his teeth. He glances back at you once, nods, and faces the horizon. There is no path on the sea. Only direction. South. Into the unknown.
+    </div>
+    <div class="dm-box"><strong>DM Note:</strong> Play up the moment of departure. Ask each player: <em>"As the Cape disappears, what does your character do? What are they thinking?"</em> This is the last moment of safety for a long time. Let it breathe.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ ACT 2 -->
+<div class="panel" id="panel-act2">
+  <div class="parchment">
+    <div class="act-label">Act Two</div>
+    <div class="section-title">The Voyage — Wonders &amp; Terrors</div>
+    <div class="section-deco">🌊 🌊 🌊</div>
+
+    <h3>Encounter 2A — Fog Island (Days 3–4)</h3>
+    <div class="read-aloud">
+      On the third morning, a white fog rolls in so thick you cannot see the bow from the stern. The fog smells wrong — like old stone and something sweet, almost floral, utterly out of place on the open ocean. The compass spins. Captain Hoog is cursing under his breath. Then, through the white, the dark shape of an island appears — an island not on any chart except Old Miriam's.
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> This is an exploration encounter, no combat unless players push it. The island exists in a permanent fog bank. It's about 2 miles across, covered in black volcanic rock and strange bioluminescent moss. The goal is to find the Navigation Stone — a lodestone pillar that, when touched, resets compasses and gives the party's navigator advantage on all future navigation checks.</div>
+
+    <h4>Island Challenges (choose 2–3 based on time)</h4>
+    <p><strong>The Singing Cliffs:</strong> DC 13 Wisdom save or be compelled to walk toward them (enchantment). Insight DC 15 reveals it's not magic — it's wind through hollow rock.</p>
+    <p><strong>The Tide Trap:</strong> A canyon fills with seawater every 10 minutes. Players must cross (Athletics DC 12) or find alternate route (Perception DC 14 to spot a rope bridge).</p>
+    <p><strong>The Island's Guardian — Giant Constrictor Snake:</strong> Lives in the ruins of a Portuguese explorer's camp. It is not evil — it is territorial. Players can fight it or use Animal Handling (DC 15) to calm it.</p>
+    <p><strong>The Navigation Stone:</strong> At the island's centre, a 10-foot obsidian pillar humming faintly. Touching it deals 1d6 lightning damage (DC 12 Con save, half on success) and resets all compasses. Also inscribed on it: <em>"Aqui chegámos. Virámos para trás. Deus nos perdoe."</em> (Portuguese: "We came this far. We turned back. God forgive us.")</p>
+
+    <div class="dialogue-box">
+      <div class="speaker">Captain Hoog — at the inscription</div>
+      <div class="dialogue-text">"Portuguese. From the last century, by the weathering. So someone made it this far and… went home. <em>[long pause]</em> Maybe they were wiser than us. <em>[tucks pipe in pocket]</em> Or maybe they just hadn't been paid enough."</div>
+      <div class="voice-note">Voice: Quieter than usual. This is one of the rare moments Hoog shows vulnerability. Let it linger.</div>
+    </div>
+
+    <h3>Encounter 2B — The Pirate Ambush (Day 7)</h3>
+    <div class="read-aloud">
+      Clear skies, a good wind — and then the crack of a cannon shot across your bow. Two dark ships emerge from behind a rocky promontory, black flags snapping. "THE DAGGER FLEET" is painted in red on the lead ship's hull. A voice bellows through a speaking-trumpet: "Heave to and prepare to be boarded, or we'll sink you where you sail!"
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> This is a SHIP COMBAT encounter. Run it in rounds. Each round, players can: man a cannon (attack roll +5, 3d10 damage), steer (Dexterity/Vehicles DC 13 to avoid next enemy volley), or prepare to repel boarders. The enemy will attempt to grapple and board after 3 rounds. Once boarders are on deck, it becomes standard melee combat. Enemy forces: <strong>12 Pirate Raiders</strong> (use Bandit stat block), <strong>1 Pirate Captain Vrouwe Heks</strong> (use full stat block in Enemies section).</div>
+
+    <h4>Ship Combat Rules (Simplified)</h4>
+    <p><strong>Initiative:</strong> Roll normally. On each player's turn they choose a ship action AND a personal action.</p>
+    <p><strong>Enemy Ship HP:</strong> 120 HP. AC 14. Each hit destroys rigging/hull. At 60 HP, it lists and slows. At 0, it sinks.</p>
+    <p><strong>Witte Horizon HP:</strong> Track damage. Every 50 HP lost requires a DC 13 Carpenter's check at next rest to repair, or the ship loses a mast and speed drops.</p>
+    <p><strong>Boarding:</strong> If the enemy ship gets within 30 feet and isn't sunk, 1d4+2 pirates swing across on ropes each round. Place them on deck.</p>
+
+    <div class="dialogue-box">
+      <div class="speaker">Captain Vrouwe Heks — Boarding</div>
+      <div class="dialogue-text">"What's this, then? Scholars and landlubbers? <em>[looks at the navigation charts]</em> Oh, you're the fools going to the edge. I've heard of you. You know what happened to the last three ships that tried? <em>[pause]</em> Neither do I. And that's exactly why you should hand over all your gold and go home. This is the last warning the sea will give you."</div>
+      <div class="voice-note">Voice: Low, dangerous, West African accent. She is not entirely bluffing — she has been further south than most and knows something waits out there. She will retreat if reduced to half HP, leaving a cryptic warning.</div>
+    </div>
+
+    <h3>Encounter 2C — The Kraken (Days 10–11) [BOSS]</h3>
+    <div class="read-aloud">
+      The sea has gone black. Not the darkness of depth — something else, like ink spreading. The water temperature drops sharply. The crew is silent. Then the ship lurches. Something has wrapped itself around the hull below the waterline. A tentacle the thickness of a barrel — no, two — rises from the water alongside the ship, reaching for the rigging. And from below, in the black, two eyes the size of cartwheels open and look directly at you.
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> This is the NEAR-QUIT moment. After round 2 of the kraken fight, have the crew begin to panic. Sailor NPCs scramble for the rowboat. Captain Hoog grips the wheel, white-knuckled, and says nothing. The player characters must choose: fight through, or go home. Make it feel real — the kraken is genuinely terrifying. However it IS beatable. The kraken has a weak point: a barnacled scar on its mantle (DC 16 Perception to notice, deals double damage). Full stat block in Enemies section.</div>
+
+    <h4>The Near-Quit Moment</h4>
+    <div class="dialogue-box">
+      <div class="speaker">Sailor NPC "One-Eye" Pieter — Round 2</div>
+      <div class="dialogue-text">"That's IT! I didn't sign up to be EATEN! <em>[runs for the rowboat]</em> The money's not worth it — nothing's worth it — we're going to DIE out here, we're ALL going to—"</div>
+      <div class="voice-note">Voice: Screaming, terrified. Let him run. Another sailor follows. This should feel like the moment real expeditions collapsed. Players must decide whether to abandon ship, fight on, or something creative.</div>
+    </div>
+    <div class="dialogue-box">
+      <div class="speaker">Captain Hoog — simultaneously, almost to himself</div>
+      <div class="dialogue-text">"<em>[gripping the wheel, teeth clenched]</em> My father was a sailor. His father too. The sea has never beaten a Hoog. It is not going to start tonight. <em>[to the players]</em> What do you say? Do we run — or do we find out what's at the edge of everything?"</div>
+      <div class="voice-note">Voice: Raw, urgent. This is the first time Hoog shows genuine passion. This speech should give players inspiration if they choose to fight on.</div>
+    </div>
+
+    <h4>Kraken Combat Key Rules</h4>
+    <p><strong>Tentacles on ship:</strong> Each tentacle that grabs the hull deals 2d10 damage to the ship per round. Players can attack tentacles directly (each has 30 HP, AC 13).</p>
+    <p><strong>Ink cloud:</strong> Once per encounter, the area becomes heavily obscured for 1 minute. Players within must make DC 14 Con saves or be blinded.</p>
+    <p><strong>If the Kraken reaches 80 HP damage taken:</strong> It retreats into the deep, releasing the ship. The players have won — for now.</p>
+    <p><strong>Victory moment:</strong> The sea clears. The ink disperses. The ship is damaged but sailing. One remaining sailor kneels on deck and begins to cry. Another starts laughing hysterically. This is real. They are real adventurers now.</p>
+
+    <div class="dialogue-box">
+      <div class="speaker">Naledi of the Cape — After the Kraken</div>
+      <div class="dialogue-text">"In my people's stories, the deep water has a guardian. We call it <em>Makulu wa Maji</em> — the Great One of the Water. We do not go into its waters. <em>[looks at the retreating darkness]</em> We just did. <em>[pause]</em> I think this means the edge <em>wants</em> us to find it. Or it is testing whether we deserve to."</div>
+      <div class="voice-note">Voice: Calm despite everything. She is the most spiritually grounded member of the crew. Her words should land with weight.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ ACT 3 -->
+<div class="panel" id="panel-act3">
+  <div class="parchment">
+    <div class="act-label">Act Three</div>
+    <div class="section-title">The Edge of the World</div>
+    <div class="section-deco">✦ ✦ ✦</div>
+
+    <h3>Scene 3A — Approach (Day 14)</h3>
+    <div class="read-aloud">
+      The sea changes. The waves flatten, as if the water itself is becoming still with anticipation. The horizon ahead is wrong — the line between sea and sky looks brighter than it should, like the sun is rising ahead of you rather than above. The air hums. Not with wind. With something deeper. The crew has stopped talking entirely. Even Captain Hoog holds the wheel with both hands, leaning forward. And then you see it. The sea simply… ends. Perhaps two miles ahead. It ends. It pours off the edge of the world in a waterfall so vast and so loud that you can feel the vibration in your chest from here. The mist that rises from it catches the light and turns everything gold and white and terrifying.
+    </div>
+
+    <h3>Scene 3B — The Guardian of the Rim</h3>
+    <div class="read-aloud">
+      From the mist of the Cascade Rim rises a figure. Not a monster — or not only a monster. It stands fifty feet tall, made of water and golden light and something else, something like starlight held in the shape of a man. Its voice does not come from its mouth. It comes from everywhere, and it speaks in every language at once: <em>"Who approaches the Rim of Creation? Speak your purpose. Those who come to plunder will fall. Those who come to know will be answered."</em>
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> This is a ROLEPLAY encounter, not a combat encounter — unless players attack, in which case use the Rim Guardian stat block. The Guardian asks three questions of the party. Their answers determine what they see at the edge. This is the philosophical heart of the campaign. There are no wrong answers — only honest and dishonest ones. The Guardian detects lies (Insight +12 vs Deception).</div>
+
+    <h4>The Three Questions</h4>
+    <p><strong>Question 1:</strong> <em>"Why did you come here?"</em> (Individual answers from each player.)</p>
+    <p><strong>Question 2:</strong> <em>"What do you fear you will find?"</em></p>
+    <p><strong>Question 3:</strong> <em>"What will you do with what you learn?"</em></p>
+
+    <div class="dialogue-box">
+      <div class="speaker">The Rim Guardian</div>
+      <div class="dialogue-text">"<em>[after hearing honest answers]</em> Very well. You are not the first to come here seeking truth. Most who came before came seeking power, or treasure, or proof that their god was correct. They fell. <em>[pause, and the waterfall roars louder for a moment]</em> You may approach. But understand: what is beyond the edge is not nothing. It is everything that was, before your world was spoken into being. You will see it. You will not understand it. And you will carry it with you forever. Are you willing?"</div>
+      <div class="voice-note">Voice: It is simultaneously all voices — old men, children, men and women and things with no name. Do not try to "do an accent." Speak slowly, in a measured register, with long pauses. Let the silence work.</div>
+    </div>
+
+    <h3>Scene 3C — The Revelation</h3>
+    <div class="read-aloud">
+      The ship drifts to the edge. The waterfall is deafening — the greatest sound you have ever heard, the sound of all the water in the world falling forever into something beneath existence. You look over the side. And beyond the edge of the world, there is… <em>[pause for effect]</em> …light. Pure, sourceless, endless light that is also darkness, that is also colour, that is also sound, that is the feeling of being held and the feeling of falling and the feeling of being exactly where you were always meant to be. It is the face of creation. It is the space where God breathed the world into being. It is the abyss and it is home. And you understand, in a way that will never fully fit into words, that the world does not end here. It begins here.
+    </div>
+
+    <div class="dm-box"><strong>DM Note:</strong> Go around the table. Ask each player: <em>"What does your character see, specifically, in the light?"</em> Their answer should reflect their character's deepest wish or fear. The cartographer sees every map he will ever make, already drawn. The pirate sees her dead crewmates, alive and at peace. The cleric sees the face of God — and it is kind. Give each player their own private moment. This is what they came for.</div>
+
+    <h4>After the Revelation — The Return</h4>
+    <div class="dialogue-box">
+      <div class="speaker">Beatrix Hartmann — writing in her journal, voice breaking</div>
+      <div class="dialogue-text">"I have been to the edge of the world. I have seen what is there. And I find I cannot write it down. For the first time in my life, I have no words. <em>[looks up]</em> And I think… I think that might be the point."</div>
+      <div class="voice-note">Voice: Quiet wonder. Not sad. Not triumphant. Changed.</div>
+    </div>
+
+    <div class="dialogue-box">
+      <div class="speaker">Captain Hoog — turning the ship around</div>
+      <div class="dialogue-text">"Right. <em>[clears throat]</em> I've seen enough. More than enough. <em>[quietly]</em> I think I'll retire when we get back. Buy a plot of land. Far from the sea. <em>[looks back at the waterfall one last time]</em> Or perhaps not. <em>[turns to face forward]</em> All hands! North-northwest! We're going home!"</div>
+      <div class="voice-note">Voice: Returning to his gruff captain's voice — but it's an act now and everyone knows it. The crack in it is real.</div>
+    </div>
+
+    <h3>Scene 3D — The Return Voyage &amp; Epilogue</h3>
+    <p>The return voyage is peaceful — the sea parts for them, the winds are favourable, and the kraken does not appear. This is a gift from the Guardian. The journey home takes 10 days.</p>
+    <p>As Cape Town's harbour comes into view, ask each player to deliver one final line — what their character says (or doesn't say) as they see their home again. Let it be whatever it needs to be.</p>
+    <div class="read-aloud">
+      Table Mountain rises above Cape Town, its famous tablecloth of cloud spread across the summit. The harbour smells of fish and rope and ordinary life. Old Miriam is standing on the dock, as if she knew you were coming. She doesn't ask what you found. She simply looks at your faces — all of your faces, students and pirates alike — and nods once, slowly. And she smiles.
+    </div>
+
+    <div class="dialogue-box">
+      <div class="speaker">Old Miriam — Final Line</div>
+      <div class="dialogue-text">"<em>[very quietly, almost to herself]</em> So it is still there. Good. <em>[looks at Beatrix's blank journal pages]</em> Don't worry, child. Some things do not need to be written. They only need to be carried. <em>[turns and walks away into the crowd]</em>"</div>
+      <div class="voice-note">Voice: The oldest voice you can manage. Peaceful. Like someone who has been waiting centuries for confirmation of something she already knew.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ NPCs -->
+<div class="panel" id="panel-npcs">
+  <div class="parchment">
+    <div class="act-label">Non-Player Characters</div>
+    <div class="section-title">NPC Compendium &amp; Dialogue Scripts</div>
+    <div class="section-deco">— 👤 —</div>
+
+    <h3>Captain Maarten Hoog</h3>
+    <p><em>Human male, ~50. Grizzled, thick-bearded, VOC veteran turned freelance captain. Wears a battered naval coat. One gold tooth. Commanding but not unkind.</em></p>
+    <p><strong>Role:</strong> Ship captain. Primary NPC ally throughout. His arc: mercenary indifference → genuine awe → transformation.</p>
+    <p><strong>Voice:</strong> Gravelly Dutch accent. Speaks slowly, means every word. Never uses two words where one will do. Taps finger on surfaces when thinking.</p>
+
+    <div class="dialogue-box"><div class="speaker">On being hired</div><div class="dialogue-text">"Three hundred gold. Half now, half when we get back. If we don't get back — well, then it won't matter, will it? I've sailed worse waters for less money. Get your gear on my ship by dawn."</div></div>
+    <div class="dialogue-box"><div class="speaker">Day 5 — to a nervous student</div><div class="dialogue-text">"You're scared? Good. A man who isn't scared of the sea is either a fool or a liar. The sea doesn't care which you are. It'll drown you just the same. Fear keeps you smart. <em>[pause]</em> Just don't let it keep you still."</div></div>
+    <div class="dialogue-box"><div class="speaker">After the Kraken</div><div class="dialogue-text">"I'm going to need a longer drink than this bottle holds. <em>[looks at the damage]</em> She held. I didn't think she'd hold. <em>[quietly]</em> Good ship. Good damn ship."</div></div>
+    <div class="dialogue-box"><div class="speaker">At the Edge</div><div class="dialogue-text">"<em>[long silence]</em> My wife told me I'd die at sea. I always thought she meant this kind — water in the lungs, screaming and cold. <em>[pause]</em> I think she meant this kind. Quiet. Certain. Changed forever. <em>[wipes eye roughly]</em> Don't tell anyone I said that."</div></div>
+
+    <hr style="border-color:var(--border);margin:1.5rem 0">
+
+    <h3>Old Miriam</h3>
+    <p><em>Elderly woman of indeterminate origin. Keeps a map stall at the docks. Her eyes are the colour of sea ice. She has been in Cape Town for as long as anyone can remember.</em></p>
+    <p><strong>Mystery:</strong> She has been to the edge herself, long ago. She will never confirm this, but careful players (Insight DC 16) may guess. She is not magical — she is simply very, very old and very, very patient.</p>
+    <p><strong>Voice:</strong> Barely above a whisper. Portuguese accent beneath Dutch. Takes long pauses between sentences, as if each word is carefully chosen from a great store of words.</p>
+
+    <div class="dialogue-box"><div class="speaker">Selling the chart</div><div class="dialogue-text">"Fog Island forgets you. The Drowned Shelf remembers everything. The Cascade Rim — <em>[she stops]</em> — the Rim is the end of forgetting and remembering both. Keep this chart dry. Water damages the ink, but the truth underneath cannot be damaged. Go. And come back."</div></div>
+    <div class="dialogue-box"><div class="speaker">If asked "Have you been there?"</div><div class="dialogue-text">"<em>[very long pause]</em> I have been many places. <em>[returns to sorting charts]</em> The price is fifty gold. Or a promise. Which do you prefer?"</div></div>
+
+    <hr style="border-color:var(--border);margin:1.5rem 0">
+
+    <h3>Captain Vrouwe Heks (Pirate Villain)</h3>
+    <p><em>West African woman, ~35. Leader of the Dagger Fleet, two vessels strong. Escaped from a Portuguese slaving vessel at 17. Has sailed the southern ocean for fifteen years. Fears nothing visible.</em></p>
+    <p><strong>Motivation:</strong> She's not purely villainous — she doesn't want anyone to reach the edge because she believes it will destroy the world. She has seen something in the deep south that frightened her enough to become its self-appointed guardian.</p>
+    <p><strong>Voice:</strong> Low, clipped, Yoruba-influenced English/Dutch. Does not shout — she articulates. Every word arrives like a thrown knife.</p>
+
+    <div class="dialogue-box"><div class="speaker">Initial hail</div><div class="dialogue-text">"No one sails south of the fortieth parallel. That's the rule. My rule. The sea's rule. You have ten seconds to turn your ship around before I put a cannon shot through your waterline. I am not asking."</div></div>
+    <div class="dialogue-box"><div class="speaker">During boarding</div><div class="dialogue-text">"I've sunk four ships trying to reach the edge. I did not enjoy it. I will sink yours too, if I must. I am asking you: <em>why</em> is this worth dying for? What do you think is out there that is worth all of this?"</div></div>
+    <div class="dialogue-box"><div class="speaker">If reduced to half HP / retreating</div><div class="dialogue-text">"<em>[backing toward her ship]</em> You'll reach it. I can see that now. You're the type. Fine. But when you look over the edge — remember that you chose this. Remember that I warned you. And when you come back changed — and you will come back changed — remember: some things can be unlearned. The edge cannot. <em>[she jumps back to her ship]</em>"</div></div>
+
+    <hr style="border-color:var(--border);margin:1.5rem 0">
+
+    <h3>The Rim Guardian</h3>
+    <p><em>Not a creature. Not a god. Something between. A voice and a shape that the world uses to ask its own questions.</em></p>
+    <p><strong>Voice instructions:</strong> Speak in a measured monotone. Pause three full seconds between sentences. Do not do an accent. Do not raise or lower pitch. The weight comes from the pace and the words themselves, not performance.</p>
+
+    <div class="dialogue-box"><div class="speaker">The Three Questions</div><div class="dialogue-text">"Why did you come here? <em>[wait for answers]</em> What do you fear you will find? <em>[wait]</em> What will you do with what you learn? <em>[wait — and then:] </em> You have answered honestly. This is rarer than you might imagine. You may see."</div></div>
+    <div class="dialogue-box"><div class="speaker">If attacked</div><div class="dialogue-text">"<em>[no change in tone]</em> You choose to fight what you do not understand. This is also common. <em>[combat begins]</em> I do not enjoy this. Come back when you are ready to ask instead of strike."</div></div>
+    <div class="dialogue-box"><div class="speaker">Farewell</div><div class="dialogue-text">"You have seen. Now go. Live. The question was never what is at the edge. The question was always: who are you, to ask it? You have answered. The edge will remember you. <em>[fading]</em> Go home. Be kind. The world is small and brief and worth every moment of it."</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ ENEMIES -->
+<div class="panel" id="panel-enemies">
+  <div class="parchment">
+    <div class="act-label">Bestiary</div>
+    <div class="section-title">Enemy Stat Blocks</div>
+    <div class="section-deco">— ⚔ —</div>
+    <p>Click each enemy header to expand their full stat block.</p>
+
+    <!-- PIRATE RAIDER -->
+    <div class="encounter-card">
+      <div class="encounter-header" onclick="toggleEncounter(this)">
+        <span>Pirate Raider (×12)</span>
+        <span class="cr-badge">CR 1/8</span>
+      </div>
+      <div class="encounter-body">
+        <div class="stat-block">
+          <div class="stat-header"><h3>Pirate Raider</h3><p>Medium humanoid (any race), chaotic neutral</p></div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-label">Armor Class</span><span class="stat-val">12 (leather armor)</span></div>
+            <div class="stat-row"><span class="stat-label">Hit Points</span><span class="stat-val">11 (2d8+2)</span></div>
+            <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-val">30 ft., swim 20 ft.</span></div>
+            <hr class="stat-divider">
+            <div class="ability-scores">
+              <div class="ability-score"><div class="ability-name">STR</div><span class="ability-num">13</span><span class="ability-mod">+1</span></div>
+              <div class="ability-score"><div class="ability-name">DEX</div><span class="ability-num">14</span><span class="ability-mod">+2</span></div>
+              <div class="ability-score"><div class="ability-name">CON</div><span class="ability-num">12</span><span class="ability-mod">+1</span></div>
+              <div class="ability-score"><div class="ability-name">INT</div><span class="ability-num">9</span><span class="ability-mod">-1</span></div>
+              <div class="ability-score"><div class="ability-name">WIS</div><span class="ability-num">10</span><span class="ability-mod">+0</span></div>
+              <div class="ability-score"><div class="ability-name">CHA</div><span class="ability-num">8</span><span class="ability-mod">-1</span></div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-label">Skills</span><span class="stat-val">Athletics +3, Stealth +4</span></div>
+            <div class="stat-row"><span class="stat-label">Senses</span><span class="stat-val">Passive Perception 10</span></div>
+            <div class="stat-row"><span class="stat-label">Languages</span><span class="stat-val">Dutch, Common</span></div>
+            <hr class="stat-divider">
+            <p><span class="trait-name">Pack Tactics.</span> The raider has advantage on attack rolls against a creature if at least one of the raider's allies is adjacent to the target and the ally isn't incapacitated.</p>
+            <p><span class="trait-name">Sea Legs.</span> The raider ignores difficult terrain on ship decks and has advantage on Dexterity saves against being knocked prone on a moving vessel.</p>
+            <div class="action-header">Actions</div>
+            <p><span class="trait-name">Cutlass.</span> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6+1) slashing damage.</p>
+            <p><span class="trait-name">Flintlock Pistol.</span> Ranged Weapon Attack: +4 to hit, range 30/90 ft., one target. Hit: 6 (1d8+2) piercing damage. Reload (takes bonus action).</p>
+            <p><span class="trait-name">Boarding Hook.</span> If the raider moves at least 10 ft. toward a target, it may attempt to knock them prone (DC 12 Str save) as a bonus action after hitting with the cutlass.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIRATE CAPTAIN -->
+    <div class="encounter-card">
+      <div class="encounter-header" onclick="toggleEncounter(this)">
+        <span>Captain Vrouwe Heks — Pirate Captain</span>
+        <span class="cr-badge">CR 5</span>
+      </div>
+      <div class="encounter-body">
+        <div class="stat-block">
+          <div class="stat-header"><h3>Captain Vrouwe Heks</h3><p>Medium humanoid (human), chaotic neutral</p></div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-label">Armor Class</span><span class="stat-val">16 (studded leather + nimble)</span></div>
+            <div class="stat-row"><span class="stat-label">Hit Points</span><span class="stat-val">78 (12d8+24)</span></div>
+            <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-val">35 ft., swim 30 ft., climb 30 ft.</span></div>
+            <hr class="stat-divider">
+            <div class="ability-scores">
+              <div class="ability-score"><div class="ability-name">STR</div><span class="ability-num">16</span><span class="ability-mod">+3</span></div>
+              <div class="ability-score"><div class="ability-name">DEX</div><span class="ability-num">18</span><span class="ability-mod">+4</span></div>
+              <div class="ability-score"><div class="ability-name">CON</div><span class="ability-num">14</span><span class="ability-mod">+2</span></div>
+              <div class="ability-score"><div class="ability-name">INT</div><span class="ability-num">13</span><span class="ability-mod">+1</span></div>
+              <div class="ability-score"><div class="ability-name">WIS</div><span class="ability-num">15</span><span class="ability-mod">+2</span></div>
+              <div class="ability-score"><div class="ability-name">CHA</div><span class="ability-num">16</span><span class="ability-mod">+3</span></div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-label">Saving Throws</span><span class="stat-val">Str +6, Dex +7, Wis +5</span></div>
+            <div class="stat-row"><span class="stat-label">Skills</span><span class="stat-val">Athletics +6, Acrobatics +7, Intimidation +6, Perception +5, Vehicles (Sea) +7</span></div>
+            <div class="stat-row"><span class="stat-label">Senses</span><span class="stat-val">Passive Perception 15</span></div>
+            <div class="stat-row"><span class="stat-label">Languages</span><span class="stat-val">Yoruba, Portuguese, Dutch, Common</span></div>
+            <hr class="stat-divider">
+            <p><span class="trait-name">Evasion.</span> If Heks is subjected to an effect that allows a Dexterity save for half damage, she takes no damage on a success, half on a failure.</p>
+            <p><span class="trait-name">Rigging Master.</span> Heks ignores difficult terrain on ships and can use 10 ft. of movement to swing on a rope to any point within 30 ft. as part of her move action.</p>
+            <p><span class="trait-name">Legendary Resistance (1/day).</span> If she fails a saving throw, she may choose to succeed instead.</p>
+            <div class="action-header">Actions (Multiattack)</div>
+            <p>Heks makes two attacks: one with her sabre and one with her hand cannon, OR two sabre attacks.</p>
+            <p><span class="trait-name">Sabre of the Southern Sea.</span> Melee Weapon Attack: +7 to hit, reach 5 ft. Hit: 9 (1d8+4) slashing + 3 (1d6) lightning damage (the blade crackles with St. Elmo's fire).</p>
+            <p><span class="trait-name">Hand Cannon.</span> Ranged Weapon Attack: +7 to hit, range 40/100 ft. Hit: 12 (2d8+3) piercing damage. Thunderous crack — all creatures within 10 ft. of the target make DC 13 Con save or are deafened until end of their next turn.</p>
+            <p><span class="trait-name">Rally the Crew (Recharge 5–6).</span> All Pirate Raiders within 60 ft. gain 10 temporary HP and advantage on their next attack.</p>
+            <div class="action-header">Bonus Actions</div>
+            <p><span class="trait-name">Cunning Footwork.</span> Heks can Dash, Disengage, or Hide as a bonus action.</p>
+            <div class="action-header">Reactions</div>
+            <p><span class="trait-name">Parry.</span> When hit by a melee attack, Heks adds +3 to AC against that attack (declared before damage roll).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GIANT CONSTRICTOR SNAKE -->
+    <div class="encounter-card">
+      <div class="encounter-header" onclick="toggleEncounter(this)">
+        <span>Island Serpent (Giant Constrictor Snake)</span>
+        <span class="cr-badge">CR 2</span>
+      </div>
+      <div class="encounter-body">
+        <div class="stat-block">
+          <div class="stat-header"><h3>Island Serpent</h3><p>Huge beast, unaligned</p></div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-label">Armor Class</span><span class="stat-val">12</span></div>
+            <div class="stat-row"><span class="stat-label">Hit Points</span><span class="stat-val">60 (8d12+8)</span></div>
+            <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-val">30 ft., swim 30 ft., climb 20 ft.</span></div>
+            <hr class="stat-divider">
+            <div class="ability-scores">
+              <div class="ability-score"><div class="ability-name">STR</div><span class="ability-num">19</span><span class="ability-mod">+4</span></div>
+              <div class="ability-score"><div class="ability-name">DEX</div><span class="ability-num">14</span><span class="ability-mod">+2</span></div>
+              <div class="ability-score"><div class="ability-name">CON</div><span class="ability-num">12</span><span class="ability-mod">+1</span></div>
+              <div class="ability-score"><div class="ability-name">INT</div><span class="ability-num">1</span><span class="ability-mod">-5</span></div>
+              <div class="ability-score"><div class="ability-name">WIS</div><span class="ability-num">10</span><span class="ability-mod">+0</span></div>
+              <div class="ability-score"><div class="ability-name">CHA</div><span class="ability-num">3</span><span class="ability-mod">-4</span></div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-label">Skills</span><span class="stat-val">Perception +2, Stealth +4</span></div>
+            <div class="stat-row"><span class="stat-label">Senses</span><span class="stat-val">Blindsight 10 ft., Passive Perception 12</span></div>
+            <hr class="stat-divider">
+            <p><span class="trait-name">Territorial.</span> The serpent has advantage on attacks against creatures that are not fleeing. If all creatures flee, it does not pursue beyond 120 ft. of its den.</p>
+            <p><span class="trait-name">Bioluminescent.</span> The serpent's scales glow faintly — it cannot be hidden from and sheds dim light in 10 ft. radius.</p>
+            <div class="action-header">Actions (Multiattack)</div>
+            <p>The serpent makes one Bite and one Constrict, OR two Bites.</p>
+            <p><span class="trait-name">Bite.</span> Melee Weapon Attack: +6 to hit, reach 10 ft. Hit: 11 (2d6+4) piercing damage.</p>
+            <p><span class="trait-name">Constrict.</span> Melee Weapon Attack: +6 to hit, reach 5 ft., one Large or smaller creature. Hit: 13 (2d8+4) bludgeoning damage and the target is grappled (escape DC 14). While grappled, target is restrained and takes 13 (2d8+4) bludgeoning at start of its turns.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KRAKEN -->
+    <div class="encounter-card">
+      <div class="encounter-header" onclick="toggleEncounter(this)">
+        <span>The Kraken — The Deep Below (BOSS)</span>
+        <span class="cr-badge">CR 14 (Modified)</span>
+      </div>
+      <div class="encounter-body">
+        <div class="stat-block">
+          <div class="stat-header"><h3>The Kraken</h3><p>Gargantuan monstrosity, chaotic evil — Guardian of the Deep</p></div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-label">Armor Class</span><span class="stat-val">18 (natural armor)</span></div>
+            <div class="stat-row"><span class="stat-label">Hit Points</span><span class="stat-val">248 (16d20+80) — retreats at 168 HP (80 damage taken)</span></div>
+            <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-val">20 ft., swim 60 ft.</span></div>
+            <hr class="stat-divider">
+            <div class="ability-scores">
+              <div class="ability-score"><div class="ability-name">STR</div><span class="ability-num">30</span><span class="ability-mod">+10</span></div>
+              <div class="ability-score"><div class="ability-name">DEX</div><span class="ability-num">11</span><span class="ability-mod">+0</span></div>
+              <div class="ability-score"><div class="ability-name">CON</div><span class="ability-num">20</span><span class="ability-mod">+5</span></div>
+              <div class="ability-score"><div class="ability-name">INT</div><span class="ability-num">22</span><span class="ability-mod">+6</span></div>
+              <div class="ability-score"><div class="ability-name">WIS</div><span class="ability-num">18</span><span class="ability-mod">+4</span></div>
+              <div class="ability-score"><div class="ability-name">CHA</div><span class="ability-num">20</span><span class="ability-mod">+5</span></div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-label">Saving Throws</span><span class="stat-val">Str +17, Dex +7, Con +12, Int +13, Wis +11</span></div>
+            <div class="stat-row"><span class="stat-label">Damage Immunities</span><span class="stat-val">Lightning; bludgeoning, piercing, slashing from nonmagical weapons</span></div>
+            <div class="stat-row"><span class="stat-label">Condition Immunities</span><span class="stat-val">Frightened, Paralyzed</span></div>
+            <div class="stat-row"><span class="stat-label">Senses</span><span class="stat-val">Truesight 120 ft., Passive Perception 14</span></div>
+            <div class="stat-row"><span class="stat-label">Languages</span><span class="stat-val">Understands all but speaks none — it communicates through psychic pressure</span></div>
+            <hr class="stat-divider">
+            <p><span class="trait-name">Amphibious.</span> The kraken can breathe air and water.</p>
+            <p><span class="trait-name">Freedom of the Deep.</span> The kraken ignores difficult terrain and cannot be grappled or restrained by non-magical means.</p>
+            <p><span class="trait-name">Siege Monster.</span> The kraken deals double damage to objects and structures (including the ship).</p>
+            <p><span class="trait-name">Weak Point — Barnacled Scar.</span> DC 16 Perception to notice. Attacks targeting the scar deal double damage. The scar is on the mantle, 20 ft. above waterline — requires a climb check (DC 12 Athletics) or ranged attack at -2 to reach.</p>
+            <p><span class="trait-name">Psychic Terror.</span> Any creature that starts its turn within 60 ft. of the kraken must make a DC 17 Wisdom save or be Frightened until the start of their next turn.</p>
+            <div class="action-header">Actions (Multiattack)</div>
+            <p>The kraken makes three attacks: up to two Tentacle attacks and one Bite, or uses Fling.</p>
+            <p><span class="trait-name">Tentacle.</span> Melee Weapon Attack: +17 to hit, reach 30 ft. Hit: 20 (3d6+10) bludgeoning damage and the target is grappled (escape DC 18). The kraken can grapple up to 10 creatures simultaneously.</p>
+            <p><span class="trait-name">Fling.</span> One Large or smaller creature grappled by the kraken is thrown up to 60 ft. and takes 3d6 bludgeoning damage per 10 ft. traveled. If it hits the ship, the ship takes the same damage.</p>
+            <p><span class="trait-name">Bite.</span> Melee Weapon Attack: +17 to hit, reach 5 ft. Hit: 23 (3d8+10) piercing. If the target is grappled, it is swallowed on a hit if it is Medium or smaller (blinded, restrained, 21 (6d6) acid damage per turn — can claw out with DC 20 Str check dealing 30 slashing to the kraken's interior).</p>
+            <div class="action-header">Bonus Actions</div>
+            <p><span class="trait-name">Ink Cloud (Recharge 5–6).</span> A 60-ft. radius sphere of black ink fills the water and air. Area is heavily obscured. Duration: 1 minute or until dispersed by wind. Creatures entering for the first time on a turn make DC 14 Con save or are blinded.</p>
+            <p><span class="trait-name">Hull Crush.</span> The kraken crushes a grappled ship segment. Ship takes 4d10+10 damage. If ship is at half HP, a mast breaks (DC 15 Athletics to save any PC standing on it).</p>
+            <div class="action-header">Legendary Actions (3/round, end of another creature's turn)</div>
+            <p><span class="trait-name">Tentacle Attack (1 action).</span> One tentacle attack.</p>
+            <p><span class="trait-name">Lightning Surge (2 actions).</span> The kraken releases a 5-ft.-wide, 120-ft. line of lightning. DC 16 Dex save, 4d8 lightning damage (half on save).</p>
+            <p><span class="trait-name">Rise (3 actions).</span> The kraken rises entirely above water this round — every creature within 30 ft. on the ship makes DC 18 Str save or is knocked prone. The ship takes 2d10 damage from the wake surge.</p>
+          </div>
+        </div>
+        <div class="dm-box"><strong>DM Tip:</strong> The kraken retreats once it has taken 80 total HP of damage (roughly 3–4 rounds of focused fire). Don't let the players kill it — they are NOT supposed to be able to. The retreat is not a failure, it's a victory. The sea goes still, the black ink disperses, and the ship is bloodied but intact. Celebrate this moment. They earned it.</div>
+      </div>
+    </div>
+
+    <!-- RIM GUARDIAN -->
+    <div class="encounter-card">
+      <div class="encounter-header" onclick="toggleEncounter(this)">
+        <span>The Rim Guardian (Combat Version — Only if Attacked)</span>
+        <span class="cr-badge">CR 20</span>
+      </div>
+      <div class="encounter-body">
+        <div class="stat-block">
+          <div class="stat-header"><h3>The Rim Guardian</h3><p>Huge celestial, lawful neutral — Avatar of the World's Edge</p></div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-label">Armor Class</span><span class="stat-val">21 (natural)</span></div>
+            <div class="stat-row"><span class="stat-label">Hit Points</span><span class="stat-val">350 (20d12+140) — effectively unkillable; if reduced to 0 HP it simply dissipates and reforms after 1 minute</span></div>
+            <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-val">60 ft., fly 120 ft. (hover), swim unlimited</span></div>
+            <hr class="stat-divider">
+            <div class="ability-scores">
+              <div class="ability-score"><div class="ability-name">STR</div><span class="ability-num">28</span><span class="ability-mod">+9</span></div>
+              <div class="ability-score"><div class="ability-name">DEX</div><span class="ability-num">14</span><span class="ability-mod">+2</span></div>
+              <div class="ability-score"><div class="ability-name">CON</div><span class="ability-num">24</span><span class="ability-mod">+7</span></div>
+              <div class="ability-score"><div class="ability-name">INT</div><span class="ability-num">25</span><span class="ability-mod">+7</span></div>
+              <div class="ability-score"><div class="ability-name">WIS</div><span class="ability-num">30</span><span class="ability-mod">+10</span></div>
+              <div class="ability-score"><div class="ability-name">CHA</div><span class="ability-num">28</span><span class="ability-mod">+9</span></div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-label">Damage Immunities</span><span class="stat-val">All non-magical damage; fire, cold, poison, psychic</span></div>
+            <div class="stat-row"><span class="stat-label">Condition Immunities</span><span class="stat-val">All conditions</span></div>
+            <div class="stat-row"><span class="stat-label">Special</span><span class="stat-val">Cannot be permanently destroyed — reforming is not failure, it is patience</span></div>
+            <hr class="stat-divider">
+            <p><span class="trait-name">Divine Awareness.</span> The Guardian knows if it hears a lie (automatic).</p>
+            <p><span class="trait-name">Aura of Awe.</span> All creatures within 60 ft. must succeed DC 20 Wis save or be Stunned for 1 round (once per creature per combat).</p>
+            <div class="action-header">Actions</div>
+            <p><span class="trait-name">Word of Ending.</span> One creature within 60 ft. makes DC 20 Con save or drops to 0 HP. On success: 10d10 radiant damage.</p>
+            <p><span class="trait-name">Tide of Creation.</span> A 60-ft. cone of golden water. All creatures make DC 20 Str save or are pushed 30 ft. back and knocked prone. Ship takes 6d10 damage.</p>
+            <p><span class="trait-name">Offer of Passage (Special).</span> The Guardian stops combat and repeats its questions. If answered honestly, combat ends immediately. This can happen once per combat.</p>
+            <div class="dm-box" style="margin:0.5rem 0 0"><strong>DM Note:</strong> If players somehow "defeat" the guardian (reduce to 0 HP), it simply says "Very well. You chose force over wonder. So be it." The world's edge opens for them anyway — violence was never the lock on this door. Reward the attempt with the revelation regardless.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ MAPS -->
+<div class="panel" id="panel-maps">
+  <div class="parchment">
+    <div class="act-label">Battle Cartography</div>
+    <div class="section-title">Battle Maps</div>
+    <div class="section-deco">— 🗺 —</div>
+
+    <h3>Map 1 — Fog Island: The Navigation Stone</h3>
+    <div class="battle-map-container">
+      <canvas class="map-canvas" id="mapFogIsland" width="700" height="420"></canvas>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2d5a27"></div>Dense Forest</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6b8c42"></div>Moss/Open Ground</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7a5c2a"></div>Rocky Outcrops</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div>Tidal Pool</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#222"></div>Navigation Stone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b1a1a"></div>Serpent Den</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c8a020"></div>Player Start</div>
+      </div>
+    </div>
+    <p>Each grid square = 10 feet. The canyon (tidal pools) fills with water every 10 minutes (initiative count 20). Players must reach the Navigation Stone in the centre to reset their compasses. The serpent patrols between its den and the stone — it is defending its territory, not hunting.</p>
+
+    <h3>Map 2 — Ship Deck: The Pirate Ambush</h3>
+    <div class="battle-map-container">
+      <canvas class="map-canvas" id="mapShipDeck" width="700" height="420"></canvas>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#8b6914"></div>Deck Planking</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div>Open Water / Hull</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#555"></div>Mast / Rigging</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b1a1a"></div>Cannon Ports</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2a5c2a"></div>Cargo (Cover)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c8a020"></div>Captain's Wheel</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5a1a8b"></div>Enemy Boarders</div>
+      </div>
+    </div>
+    <p>Each grid square = 5 feet. The rigging provides half cover (+2 AC) and can be climbed (DC 10 Athletics, 10 ft. per action). Barrels and coiled rope provide three-quarter cover (+5 AC) but count as difficult terrain. Cannons can be used by players — they face port and starboard, not bow/stern.</p>
+
+    <h3>Map 3 — The Kraken Battle: Open Sea</h3>
+    <div class="battle-map-container">
+      <canvas class="map-canvas" id="mapKraken" width="700" height="420"></canvas>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div>Deep Ocean</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2e6b8a"></div>Ship Wake / Churn</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b6914"></div>Ship Deck</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1a1a1a"></div>Kraken Body</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5a2a6b"></div>Kraken Tentacles</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3a3a3a"></div>Ink Cloud Zone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b1a1a"></div>Weak Point (Scar)</div>
+      </div>
+    </div>
+    <p>Each grid square = 15 feet. The kraken occupies a 4×4 area of squares. Tentacles extend up to 2 squares from its body edge (30 ft. reach). The ship occupies the upper portion. Players on the ship can attack normally, but descending to the waterline to reach the weak point requires Swimming (DC 12) or creative use of ropes. The black ink cloud spreads from the kraken's position when activated.</p>
+
+    <h3>Map 4 — The Edge of the World: Cascade Rim</h3>
+    <div class="battle-map-container">
+      <canvas class="map-canvas" id="mapEdge" width="700" height="420"></canvas>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div>Sea Surface</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c8c820"></div>Cascade Falls</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f0f0ff"></div>The Beyond</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d4a017"></div>Rim Guardian</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b6914"></div>Ship</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ffffff"></div>Mist Zone</div>
+      </div>
+    </div>
+    <p>This is primarily a roleplay map — no grid needed. The ship anchors 200 ft. from the edge. The falls are deafening within 100 ft. (communication by gesture only, unless magical). The Guardian stands between the ship and the falls. The "Beyond" glows with sourceless golden-white light. Any creature that falls into the falls must make DC 20 Strength save per round or is swept over — they do not die, they simply float in the void, describing what they see, until pulled back (rope + DC 18 Athletics check).</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ REWARDS -->
+<div class="panel" id="panel-rewards">
+  <div class="parchment">
+    <div class="act-label">Spoils &amp; Advancement</div>
+    <div class="section-title">Rewards, Loot &amp; Tables</div>
+    <div class="section-deco">— 💰 —</div>
+
+    <h3>Experience Points</h3>
+    <div class="reward-box">
+      <div class="reward-icon">⚔</div><div class="reward-text"><strong>Fog Island Exploration:</strong> 200 XP per player (discovery + optional serpent combat)</div>
+      <div class="reward-icon">🏴‍☠️</div><div class="reward-text"><strong>Pirate Ambush Combat:</strong> 800 XP per player (ship combat + boarding)</div>
+      <div class="reward-icon">🦑</div><div class="reward-text"><strong>Kraken Encounter:</strong> 1,500 XP per player (driving off the Kraken)</div>
+      <div class="reward-icon">✨</div><div class="reward-text"><strong>The Edge of the World:</strong> 1,000 XP per player (reaching the objective, roleplay resolution)</div>
+      <div class="reward-icon">🎭</div><div class="reward-text"><strong>Outstanding Roleplay:</strong> DM discretion, up to 200 XP per player (memorable character moments)</div>
+    </div>
+    <p><em>Total possible: ~3,700 XP per player. Starting at Level 3 (2,700 XP), this brings players to Level 5 by campaign end (6,500 XP needed). Consider awarding Level 4 at the midpoint, after the Kraken.</em></p>
+
+    <h3>Loot — Pirate Ambush</h3>
+    <div class="reward-box">
+      <div class="reward-icon">💰</div><div class="reward-text"><strong>Pirate Gold:</strong> 2d6 × 10 gp on each raider (total avg. 420 gp from 12 raiders)</div>
+      <div class="reward-icon">⚔</div><div class="reward-text"><strong>Captain Heks' Sabre of the Southern Sea:</strong> +1 weapon, deals +1d6 lightning damage; attuned user has advantage on Vehicles (Sea) checks. Can be looted if she is captured/defeated.</div>
+      <div class="reward-icon">📜</div><div class="reward-text"><strong>Dagger Fleet Charts:</strong> Show three uncharted islands not on any other map. DM can use for future sessions.</div>
+      <div class="reward-icon">🏴‍☠️</div><div class="reward-text"><strong>Black Powder Reserve:</strong> 20 lbs of gunpowder (worth 200 gp in Cape Town), enough to reload all cannons twice more.</div>
+    </div>
+
+    <h3>Loot — Fog Island</h3>
+    <div class="reward-box">
+      <div class="reward-icon">🧭</div><div class="reward-text"><strong>Portuguese Compass:</strong> Found in the ruined camp. Advantage on all navigation checks.</div>
+      <div class="reward-icon">📔</div><div class="reward-text"><strong>Explorer's Journal (partial):</strong> Written in Portuguese, describes 6 more days of sailing south before the author "lost the courage God gave me." Last entry: "There is a sound like the world breathing. I cannot go on. I am sorry." Translating requires Linguist or DC 14 Intelligence check.</div>
+      <div class="reward-icon">💎</div><div class="reward-text"><strong>Obsidian Lodestone Fragment:</strong> Broken from the Navigation Stone. Counts as a +1 spellcasting focus for transmutation spells. Once per day, can cast <em>Locate Object</em> (no spell slot) while holding it.</div>
+    </div>
+
+    <h3>Rewards — The Edge of the World</h3>
+    <div class="reward-box">
+      <div class="reward-icon">✨</div><div class="reward-text"><strong>The Revelation (All Players):</strong> Each player's character receives a <em>Blessing of the Rim</em>. Once per long rest, they may reroll any failed saving throw and take the higher result. This blessing fades after one year in-game time — unless the character makes good on their promise to "carry it well."</div>
+      <div class="reward-icon">📖</div><div class="reward-text"><strong>Beatrix's Chronicle:</strong> Beatrix (if a player character) may attempt to write down what they saw. This becomes a legendary document — DC 28 Persuasion to sell to any academic institution, fetching 5,000 gp. However, no one will entirely believe it.</div>
+      <div class="reward-icon">⭐</div><div class="reward-text"><strong>Fame:</strong> Upon return to Cape Town, the party are local celebrities. The VOC offers them a formal expedition contract worth 3,000 gp to document the route — but only if they sign a secrecy clause. Accepting or refusing this is a good hook for a follow-up campaign.</div>
+    </div>
+
+    <h3>Random Encounter Table — Open Sea (d8)</h3>
+    <p>Roll once per day of sailing during Act II. On a 1–2, trigger the encounter.</p>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:0.88rem">
+      <thead><tr style="background:var(--ink);color:var(--parchment)">
+        <th style="padding:0.5rem;text-align:left;font-family:'IM Fell English SC',serif">d8</th>
+        <th style="padding:0.5rem;text-align:left;font-family:'IM Fell English SC',serif">Encounter</th>
+        <th style="padding:0.5rem;text-align:left;font-family:'IM Fell English SC',serif">Details</th>
+      </tr></thead>
+      <tbody>
+        <tr style="background:rgba(0,0,0,0.04)"><td style="padding:0.4rem 0.5rem">1</td><td style="padding:0.4rem 0.5rem">Ghost Ship</td><td style="padding:0.4rem 0.5rem">A silent VOC ship drifts past. Empty, recently abandoned. Food still on the table. No signs of struggle.</td></tr>
+        <tr><td style="padding:0.4rem 0.5rem">2</td><td style="padding:0.4rem 0.5rem">Waterspout</td><td style="padding:0.4rem 0.5rem">DC 14 Vehicles check to steer around. Failure deals 3d10 damage to ship, DC 13 Dex save for players or knocked overboard.</td></tr>
+        <tr style="background:rgba(0,0,0,0.04)"><td style="padding:0.4rem 0.5rem">3</td><td style="padding:0.4rem 0.5rem">Pod of Whales</td><td style="padding:0.4rem 0.5rem">Magical whales. Glowing blue. If players do not attack, one whale surfaces beside the ship and hums — players make DC 12 Wis save or feel profound calm, removing one level of exhaustion.</td></tr>
+        <tr><td style="padding:0.4rem 0.5rem">4</td><td style="padding:0.4rem 0.5rem">Island of Glass</td><td style="padding:0.4rem 0.5rem">A small island of pure black glass — ancient lava. No life. But carved into it: a face, inhuman, eyes open. DC 15 Arcana: this is older than any civilisation. Cannot be explained.</td></tr>
+        <tr style="background:rgba(0,0,0,0.04)"><td style="padding:0.4rem 0.5rem">5</td><td style="padding:0.4rem 0.5rem">The Fever</td><td style="padding:0.4rem 0.5rem">One random PC makes DC 13 Con save or contracts sea fever. 1 level of exhaustion per day until Lesser Restoration is cast. Yusuf can cast it if he's a PC.</td></tr>
+        <tr><td style="padding:0.4rem 0.5rem">6</td><td style="padding:0.4rem 0.5rem">Merfolk Warning</td><td style="padding:0.4rem 0.5rem">Three merfolk surface and speak (Aquan). They say: "Turn back. The Deep One sleeps ahead. Your ship will wake it." If players speak Aquan or cast Tongues, they can ask for more info.</td></tr>
+        <tr style="background:rgba(0,0,0,0.04)"><td style="padding:0.4rem 0.5rem">7</td><td style="padding:0.4rem 0.5rem">Magnetic Anomaly</td><td style="padding:0.4rem 0.5rem">All compasses spin wildly for 1d4 hours. Navigation impossible without the lodestone. Creates tension — especially if they don't have it yet.</td></tr>
+        <tr><td style="padding:0.4rem 0.5rem">8</td><td style="padding:0.4rem 0.5rem">Aurora Australis</td><td style="padding:0.4rem 0.5rem">The southern lights appear, filling the sky with green and gold. No encounter — pure beauty. Each player who spends at least 1 hour watching gains inspiration. A gift from the DM.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main-wrap -->
+
+<script>
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'maps') { setTimeout(drawMaps, 100); }
+}
+
+function toggleEncounter(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ── BATTLE MAPS (Canvas) ────────────────────────────────────
+function drawMaps() {
+  drawFogIsland();
+  drawShipDeck();
+  drawKraken();
+  drawEdge();
+}
+
+function drawFogIsland() {
+  const c = document.getElementById('mapFogIsland');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+
+  // Background: water around island
+  ctx.fillStyle = '#1a3a5c';
+  ctx.fillRect(0, 0, W, H);
+
+  // Island shape
+  ctx.beginPath();
+  ctx.ellipse(350, 210, 260, 170, 0, 0, Math.PI*2);
+  ctx.fillStyle = '#4a6e30';
+  ctx.fill();
+
+  // Terrain: dense forest patches
+  const forests = [[150,130],[200,100],[300,90],[420,100],[480,140],[500,210],[460,290],[380,310],[260,300],[160,260],[120,190]];
+  forests.forEach(([x,y]) => {
+    ctx.beginPath(); ctx.arc(x, y, 22+Math.random()*12, 0, Math.PI*2);
+    ctx.fillStyle = '#2d5a27'; ctx.fill();
+  });
+
+  // Rocky outcrops
+  const rocks = [[200,230],[330,150],[410,250],[250,280]];
+  rocks.forEach(([x,y]) => {
+    ctx.beginPath(); ctx.arc(x, y, 14, 0, Math.PI*2);
+    ctx.fillStyle = '#7a5c2a'; ctx.fill();
+    ctx.strokeStyle='#5a3c12'; ctx.lineWidth=1; ctx.stroke();
+  });
+
+  // Tidal pools / canyon
+  ctx.beginPath();
+  ctx.moveTo(200,210); ctx.quadraticCurveTo(280,190,360,215); ctx.quadraticCurveTo(420,240,440,210);
+  ctx.lineWidth=18; ctx.strokeStyle='#1a5a7c'; ctx.stroke();
+
+  // Ruins
+  ctx.fillStyle='#b8a060'; ctx.strokeStyle='#7a6020'; ctx.lineWidth=2;
+  [[180,190],[190,200],[178,202],[192,188]].forEach(([x,y]) => {
+    ctx.fillRect(x-5,y-5,10,10); ctx.strokeRect(x-5,y-5,10,10);
+  });
+
+  // Navigation Stone (centre)
+  ctx.beginPath(); ctx.arc(350, 215, 16, 0, Math.PI*2);
+  ctx.fillStyle='#111'; ctx.fill();
+  ctx.strokeStyle='#666'; ctx.lineWidth=3; ctx.stroke();
+  // glow
+  const glow = ctx.createRadialGradient(350,215,4,350,215,28);
+  glow.addColorStop(0,'rgba(80,80,255,0.5)'); glow.addColorStop(1,'rgba(80,80,255,0)');
+  ctx.beginPath(); ctx.arc(350,215,28,0,Math.PI*2); ctx.fillStyle=glow; ctx.fill();
+
+  // Serpent Den
+  ctx.beginPath(); ctx.arc(430, 175, 18, 0, Math.PI*2);
+  ctx.fillStyle='#8b1a1a'; ctx.fill();
+  ctx.strokeStyle='#ff4444'; ctx.lineWidth=2; ctx.stroke();
+
+  // Player start (beach south)
+  ctx.beginPath(); ctx.arc(350, 370, 14, 0, Math.PI*2);
+  ctx.fillStyle='#c8a020'; ctx.fill();
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=0.5;
+  for(let x=0;x<W;x+=35) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for(let y=0;y<H;y+=35) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Labels
+  ctx.fillStyle='#fff'; ctx.font='bold 12px serif';
+  ctx.fillText('Navigation Stone', 264, 205);
+  ctx.fillText('Serpent Den', 440, 170);
+  ctx.fillText('Ruins', 150, 185);
+  ctx.fillText('Tidal Canyon', 270, 178);
+  ctx.fillStyle='#c8a020'; ctx.fillText('⚓ Players Start', 298, 390);
+  ctx.fillStyle='rgba(200,200,255,0.5)'; ctx.font='10px serif';
+  ctx.fillText('10 ft per square', 8, H-8);
+}
+
+function drawShipDeck() {
+  const c = document.getElementById('mapShipDeck');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+
+  // Ocean
+  ctx.fillStyle='#1a3a5c'; ctx.fillRect(0,0,W,H);
+
+  // Wave texture
+  for(let i=0;i<8;i++) {
+    ctx.beginPath();
+    ctx.moveTo(0, 30+i*50);
+    for(let x=0;x<W;x+=40) ctx.quadraticCurveTo(x+20, 20+i*50, x+40, 30+i*50);
+    ctx.strokeStyle='rgba(74,154,181,0.3)'; ctx.lineWidth=1.5; ctx.stroke();
+  }
+
+  // Ship hull (viewed from above)
+  ctx.beginPath();
+  ctx.moveTo(310,20); ctx.lineTo(390,20);
+  ctx.quadraticCurveTo(430,30,440,60);
+  ctx.lineTo(440,380); ctx.quadraticCurveTo(440,400,400,410);
+  ctx.lineTo(300,410); ctx.quadraticCurveTo(260,400,260,380);
+  ctx.lineTo(260,60); ctx.quadraticCurveTo(270,30,310,20);
+  ctx.fillStyle='#8b6914'; ctx.fill();
+  ctx.strokeStyle='#5a3c10'; ctx.lineWidth=3; ctx.stroke();
+
+  // Deck planks
+  ctx.strokeStyle='rgba(90,60,16,0.5)'; ctx.lineWidth=1;
+  for(let y=40;y<410;y+=12) { ctx.beginPath(); ctx.moveTo(265,y); ctx.lineTo(435,y); ctx.stroke(); }
+
+  // Masts (3)
+  [130,230,340].forEach(y => {
+    ctx.beginPath(); ctx.arc(350, y, 10, 0, Math.PI*2);
+    ctx.fillStyle='#3a2a10'; ctx.fill();
+    ctx.strokeStyle='#888'; ctx.lineWidth=2; ctx.stroke();
+    // Rigging lines
+    ctx.strokeStyle='rgba(150,120,60,0.7)'; ctx.lineWidth=1;
+    [[280,y-40],[420,y-40],[280,y+40],[420,y+40]].forEach(([tx,ty]) => {
+      ctx.beginPath(); ctx.moveTo(350,y); ctx.lineTo(tx,ty); ctx.stroke();
+    });
+  });
+
+  // Cannon ports (left and right)
+  [80,160,240,320].forEach(y => {
+    // Port
+    ctx.beginPath(); ctx.rect(258, y, 10, 20);
+    ctx.fillStyle='#8b1a1a'; ctx.fill(); ctx.strokeStyle='#400'; ctx.lineWidth=1; ctx.stroke();
+    // Starboard
+    ctx.beginPath(); ctx.rect(432, y, 10, 20);
+    ctx.fillStyle='#8b1a1a'; ctx.fill(); ctx.stroke();
+  });
+
+  // Cargo / Barrels (cover)
+  [[290,300],[290,330],[320,330],[440-40,300],[440-40,330],[440-70,330]].forEach(([x,y]) => {
+    ctx.beginPath(); ctx.arc(x, y, 11, 0, Math.PI*2);
+    ctx.fillStyle='#2a5c2a'; ctx.fill();
+    ctx.strokeStyle='#1a3a1a'; ctx.lineWidth=1.5; ctx.stroke();
+  });
+
+  // Captain's wheel
+  ctx.beginPath(); ctx.arc(350, 390, 15, 0, Math.PI*2);
+  ctx.fillStyle='#c8a020'; ctx.fill();
+  ctx.strokeStyle='#8b6000'; ctx.lineWidth=2; ctx.stroke();
+  for(let i=0;i<8;i++) {
+    const a = i*Math.PI/4;
+    ctx.beginPath(); ctx.moveTo(350+8*Math.cos(a),390+8*Math.sin(a));
+    ctx.lineTo(350+15*Math.cos(a),390+15*Math.sin(a));
+    ctx.strokeStyle='#8b6000'; ctx.lineWidth=2; ctx.stroke();
+  }
+
+  // Enemy boarders
+  [[290,80],[320,80],[360,80],[400,80],[430,80],[290,110]].forEach(([x,y]) => {
+    ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI*2);
+    ctx.fillStyle='#5a1a8b'; ctx.fill();
+    ctx.strokeStyle='#9940dd'; ctx.lineWidth=1.5; ctx.stroke();
+  });
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=0.5;
+  for(let x=260;x<445;x+=20) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for(let y=0;y<H;y+=20) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Labels
+  ctx.fillStyle='#fff'; ctx.font='11px serif';
+  ctx.fillText('Bow', 336, 14);
+  ctx.fillText('Stern', 328, H-4);
+  ctx.fillStyle='#9940dd'; ctx.fillText('Boarders →', 200, 90);
+  ctx.fillStyle='rgba(200,200,255,0.5)'; ctx.font='10px serif';
+  ctx.fillText('5 ft per square', 8, H-8);
+}
+
+function drawKraken() {
+  const c = document.getElementById('mapKraken');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+
+  // Deep ocean gradient
+  const bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#0a1a2e'); bg.addColorStop(1,'#1a3a5c');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  // Wake / churn around ship
+  ctx.beginPath(); ctx.ellipse(350,100,120,40,0,0,Math.PI*2);
+  ctx.fillStyle='rgba(46,107,138,0.5)'; ctx.fill();
+
+  // Ship (top, simplified)
+  ctx.beginPath();
+  ctx.moveTo(290,30); ctx.lineTo(410,30); ctx.lineTo(430,110); ctx.lineTo(270,110); ctx.closePath();
+  ctx.fillStyle='#8b6914'; ctx.fill();
+  ctx.strokeStyle='#5a3c10'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#c8a020'; ctx.font='bold 11px serif'; ctx.fillText('Witte Horizon', 296, 75);
+
+  // Kraken body (massive, lower half)
+  ctx.beginPath(); ctx.ellipse(350, 300, 180, 100, 0, 0, Math.PI*2);
+  ctx.fillStyle='#111'; ctx.fill();
+  ctx.strokeStyle='#333'; ctx.lineWidth=3; ctx.stroke();
+
+  // Kraken eyes
+  [[290,270],[410,270]].forEach(([x,y]) => {
+    ctx.beginPath(); ctx.arc(x,y,18,0,Math.PI*2);
+    ctx.fillStyle='#c8a020'; ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2);
+    ctx.fillStyle='#1a0a00'; ctx.fill();
+    // glow
+    const eg = ctx.createRadialGradient(x,y,8,x,y,22);
+    eg.addColorStop(0,'rgba(200,160,0,0.4)'); eg.addColorStop(1,'rgba(200,160,0,0)');
+    ctx.beginPath(); ctx.arc(x,y,22,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
+  });
+
+  // Tentacles
+  const tentacles = [
+    [[220,290],[180,230],[160,160],[200,120]],
+    [[240,320],[190,300],[140,270],[100,200]],
+    [[480,290],[520,230],[540,160],[500,120]],
+    [[460,320],[510,300],[560,270],[600,200]],
+    [[310,200],[270,160],[240,100],[300,60]],
+    [[390,200],[430,160],[460,100],[400,60]],
+  ];
+  tentacles.forEach(pts => {
+    ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
+    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
+    ctx.strokeStyle='#5a2a6b'; ctx.lineWidth=16; ctx.lineCap='round'; ctx.stroke();
+    ctx.strokeStyle='#7a4a8b'; ctx.lineWidth=8; ctx.stroke();
+  });
+
+  // Ink cloud zone
+  ctx.beginPath(); ctx.arc(200, 250, 80, 0, Math.PI*2);
+  ctx.fillStyle='rgba(30,20,50,0.6)'; ctx.fill();
+  ctx.strokeStyle='rgba(100,60,150,0.4)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle='rgba(150,100,200,0.8)'; ctx.font='10px serif'; ctx.fillText('Ink Cloud', 158, 250);
+
+  // Weak point (barnacled scar)
+  ctx.beginPath(); ctx.ellipse(360, 255, 22, 12, -0.3, 0, Math.PI*2);
+  ctx.fillStyle='#8b1a1a'; ctx.fill();
+  ctx.strokeStyle='#ff4444'; ctx.lineWidth=2; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#ff8888'; ctx.font='bold 10px serif'; ctx.fillText('WEAK POINT', 310, 248);
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=0.5;
+  for(let x=0;x<W;x+=45) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for(let y=0;y<H;y+=45) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Labels
+  ctx.fillStyle='rgba(200,200,255,0.5)'; ctx.font='10px serif';
+  ctx.fillText('15 ft per square', 8, H-8);
+}
+
+function drawEdge() {
+  const c = document.getElementById('mapEdge');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+
+  // Sea (top portion)
+  const seaGrad = ctx.createLinearGradient(0,0,0,H*0.55);
+  seaGrad.addColorStop(0,'#0a1a2e'); seaGrad.addColorStop(1,'#1a4060');
+  ctx.fillStyle=seaGrad; ctx.fillRect(0,0,W,H*0.55);
+
+  // The Beyond (bottom portion) — glowing light
+  const beyondGrad = ctx.createLinearGradient(0,H*0.55,0,H);
+  beyondGrad.addColorStop(0,'#f0f0ff'); beyondGrad.addColorStop(0.3,'#fffde0'); beyondGrad.addColorStop(1,'#fff8c0');
+  ctx.fillStyle=beyondGrad; ctx.fillRect(0,H*0.55,W,H*0.45);
+
+  // Mist at transition
+  for(let i=0;i<5;i++) {
+    const mg = ctx.createLinearGradient(0,H*0.45+i*12,0,H*0.65+i*12);
+    mg.addColorStop(0,'rgba(255,255,255,0)'); mg.addColorStop(0.5,'rgba(255,255,255,0.4)'); mg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=mg; ctx.fillRect(0,H*0.45+i*12,W,30);
+  }
+
+  // Waterfall edge
+  ctx.beginPath();
+  ctx.moveTo(0, H*0.52); ctx.lineTo(W, H*0.52);
+  ctx.strokeStyle='rgba(220,220,255,0.9)'; ctx.lineWidth=6; ctx.stroke();
+  // cascade lines
+  for(let x=20;x<W;x+=15) {
+    ctx.beginPath();
+    ctx.moveTo(x, H*0.52);
+    ctx.quadraticCurveTo(x+7, H*0.62, x, H*0.72);
+    ctx.strokeStyle=`rgba(200,220,255,${0.2+Math.random()*0.3})`; ctx.lineWidth=2; ctx.stroke();
+  }
+
+  // Light rays from beyond
+  ctx.save();
+  for(let i=0;i<12;i++) {
+    const angle = -0.3 + i*0.05;
+    ctx.beginPath();
+    ctx.moveTo(350, H*0.52);
+    ctx.lineTo(350 + Math.sin(angle)*600, H);
+    ctx.strokeStyle=`rgba(255,248,180,${0.1+i*0.02})`; ctx.lineWidth=20; ctx.stroke();
+  }
+  ctx.restore();
+
+  // "The Beyond" glow text
+  const tg = ctx.createRadialGradient(350,H*0.8,10,350,H*0.8,120);
+  tg.addColorStop(0,'rgba(255,255,200,0.6)'); tg.addColorStop(1,'rgba(255,255,200,0)');
+  ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(350,H*0.8,120,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='rgba(180,140,0,0.9)'; ctx.font='bold 18px serif'; ctx.textAlign='center';
+  ctx.fillText('THE BEYOND', 350, H*0.82);
+
+  // Ship
+  ctx.beginPath();
+  ctx.moveTo(290,H*0.33); ctx.lineTo(410,H*0.33); ctx.lineTo(425,H*0.44); ctx.lineTo(275,H*0.44); ctx.closePath();
+  ctx.fillStyle='#8b6914'; ctx.fill();
+  ctx.strokeStyle='#5a3c10'; ctx.lineWidth=2; ctx.stroke();
+
+  // Rim Guardian
+  const gy = H*0.46;
+  ctx.beginPath(); ctx.arc(350, gy, 20, 0, Math.PI*2);
+  const gg = ctx.createRadialGradient(350,gy,5,350,gy,30);
+  gg.addColorStop(0,'rgba(255,220,50,1)'); gg.addColorStop(1,'rgba(255,220,50,0)');
+  ctx.fillStyle=gg; ctx.fill();
+  ctx.fillStyle='#d4a017'; ctx.beginPath(); ctx.arc(350,gy,12,0,Math.PI*2); ctx.fill();
+
+  // Labels
+  ctx.fillStyle='#fff'; ctx.textAlign='left'; ctx.font='11px serif';
+  ctx.fillText('Witte Horizon', 290, H*0.37);
+  ctx.fillStyle='#ffdd44'; ctx.fillText('Rim Guardian', 280, H*0.44);
+  ctx.fillStyle='rgba(100,200,255,0.8)'; ctx.fillText('← 200 ft to edge →', 220, H*0.5);
+
+  // Sea wave lines
+  for(let y=H*0.05;y<H*0.44;y+=30) {
+    ctx.beginPath();
+    for(let x=0;x<W;x+=60) { ctx.moveTo(x,y); ctx.quadraticCurveTo(x+30,y-8,x+60,y); }
+    ctx.strokeStyle='rgba(74,154,181,0.2)'; ctx.lineWidth=1; ctx.stroke();
+  }
+
+  ctx.fillStyle='rgba(200,200,255,0.5)'; ctx.font='10px serif'; ctx.textAlign='left';
+  ctx.fillText('Narrative map — no grid scale', 8, H-8);
+}
+
+// Auto-draw maps if map panel is visible on load
+window.addEventListener('load', () => {
+  if (document.getElementById('panel-maps').classList.contains('active')) drawMaps();
+});
+</script>
+</body>
+</html>
